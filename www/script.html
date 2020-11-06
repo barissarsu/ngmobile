@@ -1,0 +1,321 @@
+﻿
+<script src="../Scripts/angular.min.js"></script>
+<!--<script src="../Scripts/angular-route.min.js"></script>-->
+<script>
+    var app = angular.module("myapp", []);
+
+    app.controller("mycontroller", function ($scope, $http) {
+
+
+
+        $http.get("https://localhost:44385/api/mekan").then(function (result) {
+            //console.log(result);
+            $scope.mekanlar = result.data;
+        })
+
+
+        $http.get("https://localhost:44385/api/kategori/getlist?tip=1").then(function (result) {
+            console.log(result);
+            $scope.mekankat = result.data;
+        })
+
+
+
+    })
+
+
+</script>
+
+
+
+
+
+
+
+
+
+<script src="../Content/assets/js/bootstrap.min.js"></script>
+<script src="../Content/assets/js/owl.carousel.min.js"></script>
+<script src="../Content/assets/js/ResizeSensor.min.js"></script>
+<script src="../Content/assets/js/theia-sticky-sidebar.min.js"></script>
+<script src="../Content/assets/js/rangeslider.min.js"></script>
+<script src="../Content/assets/js/wan-spinner.js"></script>
+<script src="../Content/assets/js/rater.min.js"></script>
+<script src="../Content/assets/js/jquery-steps.min.js"></script>
+
+<script src="../Content/assets/js/jquery.validate.min.js"></script>
+<script src="../Content/assets/js/plugins.js"></script>
+<script src="../Content/assets/js/main.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>-->
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+
+
+        $(document).ready(function () {
+            $("a[rel*=external]").attr("target", "_blank");
+
+
+
+
+            $("header").removeClass("header-style-one").addClass("header-style-two");
+
+            var ilklogo = $(".site-logo img:first").attr("src");
+            var ikincilogo = $(".site-logo img:last").attr("src");
+
+            $(".site-logo img:first").attr("src", ikincilogo);
+            $(".site-logo img:last").attr("src", ilklogo);
+
+
+
+            $(".searchform select[name=sehir]").change(function () {
+
+                var form = $(this).closest("form");
+
+
+                //var semt = form.find("select[name=semt]").val();
+
+                var sehir = $(this).val();
+
+
+
+
+                $.post("/Home/SemtleriGetir?sehir=" + sehir + "").done(function (semtler) {
+
+                    form.find("select[name=semt] option:not(:first)").remove();
+
+
+                    $.each(semtler, function (i, e) {
+                        form.find("select[name=semt]").append("<option value=\"" + e.url + "\">" + e.town_name + "</option>");
+                    })
+
+
+                    form.find("select[name=semt]").niceSelect("update");
+
+                })
+
+
+            })
+
+
+            $('.btn-password').on('click', function () {
+
+
+
+        $('.user-password-area').css('display',"flex");
+                $('.user-signin-area').css('display', "none");
+                 $('.user-signup-area').css('display',"none");
+            });
+
+
+            $(".btn-register-now").click(function () {
+                      $('.user-signin-area').css('display',"flex");
+                $('.user-signup-area').css('display', "none");
+                $('.user-password-area').css('display', "none");
+            })
+
+
+             $(".btn-signin-now").click(function () {
+                      $('.user-signup-area').css('display',"flex");
+                $('.user-signin-area').css('display', "none");
+                $('.user-password-area').css('display', "none");
+            })
+
+
+
+
+        })
+         function Keyword() {
+                 var secilenler = new Array();
+
+                $("input[name=tag]:checked").each(function (i, e) {
+                    var url = $(this).data("value");
+                    secilenler.push(url);
+                })
+
+                var keyword = secilenler.join(",");
+
+                return keyword;
+            }
+
+        $("#mekanform,#sbmekanform").submit(function () {
+            var q = $(this).find("input[name=q]").val();
+            var sehir = $(this).find("select[name=sehir]").val();
+            var semt = $(this).find("select[name=semt]").val();
+            var kategori = $(this).find("select[name=kategori]").val();
+
+
+
+            if (semt != "") {
+                sehir = "";
+            }
+
+
+            $.post("/Home/MekanAraURLBul", { q: q, sehir: sehir, semt: semt, kategori: kategori }, function (result) {
+
+                location.href = result;
+
+
+            })
+        })
+
+        function ebultensonuc(data) {
+            if (data == 1) {
+
+                swal({
+                    title: "Başarılı!",
+                    text: "E-Bülten Kaydınız başarıyla tamamlandı!",
+                    confirmButtonClass: "btn-success",
+                    imageUrl: '/Content/Wscp/img/smile.png'
+                });
+
+                $("#mc-form")[0].reset();
+            }
+            else if (data == -1) {
+                swal({
+                    title: "Kayıt Mevcut!",
+                    text: "E-Bülten Kaydınız zaten var, ilginiz için teşekkür ederiz.",
+                    type: "error",
+                    confirmButtonClass: "btn-danger"
+                });
+            }
+            else {
+                swal({
+                    title: "Hata!",
+                    text: "İşlem sırasında beklenmeyen bir hata, lütfen daha sonra tekrar deneyin.",
+                    type: "error",
+                    confirmButtonClass: "btn-danger"
+                });
+            }
+        }
+
+
+        function girissonuc(data) {
+            if (data.sonuc == 1) {
+                location.href = data.url;
+            }
+            else if (data.sonuc == 0) {
+
+                $("#girismsg").removeClass("hidden");
+
+                $("#girismsg p").addClass("hidden");
+
+                $("#bilgihata").removeClass("hidden");
+
+
+            }
+
+            else {
+                $("#girismsg").removeClass("hidden");
+                $("#girismsg p").addClass("hidden");
+
+                $("#uyeyok").removeClass("hidden");
+            }
+        }
+
+
+
+         function kayitsonuc(data) {
+
+            $("#kayitform .msg").remove();
+
+            var mesaj = $("#msgtemplate").html();
+
+              if (data == 0) {
+                  mesaj = mesaj.replace(/{{msg}}/g, "Kayıt işlemi esnasında hata, lütfen daha sonra tekrar deneyiniz!");
+                   $("#kayitform div:first").before(mesaj);
+              }
+              else if(data == -1){
+                      mesaj = mesaj.replace(/{{msg}}/g, "Kayıt işlemi esnasında hata, bu e-mail adresi ile zaten mevcut bir üye bulunuyor!");
+                   $("#kayitform div:first").before(mesaj);
+              }
+              else if (data == -2) {
+                      mesaj = mesaj.replace(/{{msg}}/g, "Parola ve parola tekrarı uyuşmuyor!");
+                   $("#kayitform div:first").before(mesaj);
+              }
+              else if(data == 1){
+                   mesaj = mesaj.replace(/{{msg}}/g, "Kayıt işlemi başarıyla tamamlandı, e-posta adresinize gelecek onay mailini onaylamanızın ardından hesabınıza giriş yapabilirsiniz!");
+                  $("#kayitform div:first").before(mesaj);
+            }
+
+        }
+
+
+        function sifresonuc(data) {
+
+             $("#sifreform .msg").remove();
+
+            var mesaj = $("#msgtemplate").html();
+
+              if (data == 0) {
+                  mesaj = mesaj.replace(/{{msg}}/g, "E-posta adresine ait üyelik bulunamadı!");
+                   $("#sifreform div:first").before(mesaj);
+              }
+              else if(data == 1){
+                   mesaj = mesaj.replace(/{{msg}}/g, "Parolanız e-posta adresinize iletilecektir, e-posta adresinizi kontrol ediniz!");
+                  $("#sifreform div:first").before(mesaj);
+            }
+              else if (data == -1) {
+                   mesaj = mesaj.replace(/{{msg}}/g, "İşlem esnasında hata, lütfen daha sonra tekrar deneyiniz!");
+                  $("#sifreform div:first").before(mesaj);
+              }
+
+
+        }
+
+
+        function SifreForm() {
+            $("#sifreform").css("display","block");
+            $("#girisform").css("display","none");
+        }
+
+        function SifreGeri() {
+            $("#sifreform").css("display","none");
+            $("#girisform").css("display","block");
+        }
+
+
+        function SosyalGiris(hesap) {
+
+            $.post("/Home/SosyalHesaplaGiris?hesap=" + hesap + "", function (result) {
+
+                if (result != "-1") {
+
+                    window.open(result, "_self", "width=200,height=100");
+                }
+
+
+            })
+        }
+
+        function iletisimsonuc(data) {
+            if (data == 1) {
+                $("#contact-form")[0].reset();
+                swal({
+                    title: "Gönderildi!",
+                    text: "Mesajınız başarıyla gönderildi.",
+                    type: "success",
+                    confirmButtonClass: "btn-success"
+                });
+
+            }
+            else {
+                swal({
+                    title: "Hata!",
+                    text: "Mesaj gönderilme esnasında hata, lütfen daha sonra tekrar deneyiniz!",
+                    type: "info",
+                    confirmButtonClass: "btn-danger"
+                });
+            }
+        }
+
+</script>
+
+
