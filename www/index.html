@@ -1,0 +1,660 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!--
+        Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
+        For details, see http://go.microsoft.com/fwlink/?LinkID=617521
+    -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src * gap://ready file:; style-src 'self' 'unsafe-inline' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; img-src * data: 'unsafe-inline'">-->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <!--<link rel="stylesheet" type="text/css" href="css/index.css">-->
+    <title>NereyeGidilmeli.Mobile</title>
+
+
+
+    <link rel="stylesheet" href="../Content/assets/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="../Content/assets/css/icomoon.css" />
+
+    <link rel="shortcut icon" href="../Content/assets/images/favicon.png" />
+    <link rel="stylesheet" href="../Content/assets/css/plugins.css" />
+
+    <link rel="stylesheet" href="../Content/style.css" />
+
+    <script src="../Content/assets/js/modernizr.min.js"></script>
+
+
+
+
+</head>
+<body ng-app="myapp" ng-controller="mycontroller">
+
+
+
+
+    <div id="header"></div>
+
+    <div id="sticky-header"></div><!--~./End site header ~-->
+
+    <div class="site-content">
+
+
+
+        <div class="frontpage-banner-section frontpage-banner-style-one bg-overlay-gradient bg-parallax bg-image ptb-100" style="background-image:url('../Content/assets/images/bg/banner/1.jpg')">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="frontpage-banner-content text-center text-white">
+                            <h1 class="banner-title">İyi seçim kaliteli yaşam.</h1>
+                            <div class="features-cat-area">
+                                <div class="features-cat-carousel owl-carousel">
+
+                                    <a href="/mekanlar/" class="cat-item" title="kategori adı">
+                                        <div class="icon">
+                                            <span class="fa fa-home"></span>
+                                        </div>
+                                        <div class="cat-name">
+                                            kategori adı
+                                        </div>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <form id="mekanform" action="javascript:(0)" class="hero-search-form searchform style-two">
+                                <div class="inner-form">
+                                    <div class="hero-form-input search">
+                                        <input id="search" type="text" name="q" placeholder="Mekan ismi veya aktivite giriniz..." />
+                                    </div>
+                                    <select name="sehir" class="hero-form-input custom-select location">
+                                        <option value="">Konum </option>
+                                        <option value="sehiradi">sehir</option>
+                                    </select>
+                                    <select name="semt" class="hero-form-input custom-select location">
+                                        <option value="">Konum </option>
+
+                                    </select>
+                                    <select name="kategori" class="hero-form-input custom-select category">
+                                        <option value="">Kategori</option>
+
+                                        <option value="kategoriurl">kategori</option>
+                                    </select>
+                                    <div class="hero-form-input submitbtn">
+                                        <button class="btn btn-default" type="submit">Ara</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <section class="popular-todos-section popular-todos-style-one ptb-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-header text-center">
+                            <h2 class="section-title">{{adi}} Öne Çıkan <span>Mekanlar</span></h2>
+                            <p>#Keşfet</p>
+                            <div class="divider">
+                                <img src="../Content/assets/images/icon/divider.png" alt="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-lg-4" ng-repeat="mekan in mekanlar">
+
+                        <div class="popular-todo-item">
+                            <div class="todo-thumbnail-area">
+                                <a href="mekanlar.html?id={{mekan.ID}}" title="{{mekan.MekanAdi}}">
+                                    <figure class="item-thumb">
+                                        <img src="https://nereyegidilmeli.com/Content/Upload/Mekanlar/{{mekan.KapakGorsel}}" alt="mekan">
+                                    </figure>
+                                </a>
+                                <div class="todo-overlay-info">
+                                    <div class="todo-meta-bottom">
+                                        <a href="javascript:MekanKaydet({{mekan.ID}})" data-id="#id" title="MekanAdi" class="save active">
+                                            <i class="fa fa-heart"></i>
+                                            favorilerime ekle
+                                        </a>
+                                        <div class="photo">
+                                            <i class="fa fa-image"></i>
+                                            5 fotoğraf
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="todo-content">
+                                <h3 class="title"><a href="mekanlar.html?id={{mekan.ID}}" title="{{mekan.MekanAdi}}">{{mekan.MekanAdi}}</a></h3>
+                                <div class="todo-meta">
+                                    <div class="todo-location">
+                                        <span class="icon-location"></span>
+
+                                        {{mekan.Semt}}, {{mekan.Sehir}}
+                                    </div>
+
+                                    <div class="todo-number">
+                                        <span class="icon-phone"></span>
+                                        {{mekan.Telefon}}
+                                    </div>
+
+                                </div>
+                                <div class="todo-summary">
+                                    {{mekan.Adres}}
+                                </div>
+                            </div>
+                            <div class="todo-footer">
+                                <a title="{{mekan.KategoriAdi}}" href="mekanlar.html?kat={{mekan.KatID}}" class="todo-cat todo-cat-restaurant">
+                                    <span class="icon-fast-food"></span>
+                                    {{mekan.KategoriAdi}}
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="popular-todos-section popular-todos-style-three bg-fixed bg-image bg-overlay ptb-100" style="background-image:url('../Content/assets/images/bg/todo-bg.jpg')">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-header text-center text-white">
+                            <h2 class="section-title">Yaklaşan Etkinlikler</h2>
+                            <p>#Eğlen</p>
+                            <div class="divider">
+                                <img src="../Content/assets/images/icon/divider.png" alt="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="filter-tab-area style-two">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li>
+                                    <a title="@item.Kategori.KategoriAdi" class="active" data-toggle="tab" href="#todo_@item.Kategori.Url" role="tab">kategori</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content filter-tab-content">
+
+
+                    <div class="tab-pane fade show active" id="todo_katurl" role="tabpanel">
+                        <div class="todo-items-carousel2 owl-carousel carousel-nav-dots">
+
+                            <div class="popular-todo-item">
+                                <div class="todo-thumbnail-area">
+                                    <figure class="item-thumb">
+                                        <img src="../Content/Upload/Etkinlikler/" alt="Baslik">
+                                    </figure>
+                                    <div class="todo-overlay-info">
+                                        <div class="todo-type rated">dd.mm.yyyy</div>
+                                        <div class="todo-meta-bottom">
+                                            <a href="javascript:EtkinlikKaydet(ID)" data-id="id" title="Baslik" class="save active">
+                                                <i class="fa fa-heart"></i>
+                                                favorilerime ekle
+                                            </a>
+                                            <div class="photo">
+                                                <i class="fa fa-image"></i>
+                                                5 görsel
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="todo-content">
+                                    <h3 class="title"><a href="#" title="baslik">Baslik</a></h3>
+                                    <div class="todo-meta">
+                                        <div class="todo-location">
+                                            <span class="icon-location"></span>
+
+                                            <a href="#" title="mekan">mekan - MekanAdresi</a>
+                                        </div>
+
+                                        <div class="todo-number">
+                                            <span class="icon-phone"></span>
+                                            00000000000
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="todo-summary">
+                                        ccccccccccccccccccccc
+                                    </div>
+                                </div>
+                                <div class="todo-footer">
+                                    <a href="#" title="kategori" class="todo-cat todo-cat-restaurant">
+                                        <span class="icon-fast-food"></span>
+                                        kategori
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </section>
+
+
+        <section class="tips-article-section bg-gray ptb-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-header text-center">
+                            <h2 class="section-title"><span>Blog</span></h2>
+                            <p>#Öğren</p>
+                            <div class="divider">
+                                <img src="../Content/assets/images/icon/divider.png" alt="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-6">
+                        <article class="post hentry">
+                            <div class="entry-thumb">
+                                <figure class="thumb-wrap">
+                                    <a href="#" title="Baslik">
+                                        <img src="../Content/Upload/Blog/" alt="Baslik">
+
+                                    </a>
+                                </figure>
+                            </div>
+
+                            <div class="content-entry-wrap">
+                                <div class="entry-meta-content">
+                                    <div class="entry-date">
+                                        <span>dd.mm.yyyy</span>
+                                    </div>
+                                </div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title">
+                                        <a href="#" title="Baslik">Baslik</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+    </div>
+
+    <footer class="site-footer footer-default-style footer-style-two bg-image bg-overlay" style="background-image:url('../Content/assets/images/bg/footer-bg.jpg')">
+
+        <div class="footer-widget-area ptb-100">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3">
+                        <aside class="widget bt-about-footer-widget">
+                            <div class="widget-content">
+                                <div class="about-logo">
+                                    <a href="index.html" title="Nereye Gidilmeli?"><img src="../Content/assets/images/logo/logo1nry.svg" width="198" alt="Nereye Gidilmeli"></a>
+                                </div>
+                                <p>Nereye gidilmeli ile iyi seçim kaliteli yaşam sahibi olun...</p>
+                                <ul class="social-share">
+                                    <li><a class="facebook" href="#" title="Facebook Nereye Gidilmeli?"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a class="twitter" href="#" title="Twitter Nereye Gidilmeli?"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a class="youtube" href="#" title="Youtube Nereye Gidilmeli?"><i class="fa fa-youtube"></i></a></li>
+                                    <li><a class="instagram" href="#" title="İnstagram Nereye Gidilmeli?"><i class="fa fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                    <div class="col-lg-4">
+                        <aside class="widget widget-list style-two">
+                            <h2 class="widget-title">Popüler Şehirler</h2>
+                            <div class="widget-content">
+                                <ul>
+                                    <li><a href="/mekanlar/istanbul-mekanlari" title="İstanbul mekanları, İstanbulda nereye gidilmeli?">İstanbul</a></li>
+                                    <li><a href="/mekanlar/izmir-mekanlari" title="İzmir mekanları, İzmirde nereye gidilmeli?">İzmir</a></li>
+                                    <li><a href="#" title="Antalya mekanları, Antalyada nereye gidilmeli?">Antalya</a></li>
+                                    <li><a href="#" title="Balıkesir mekanları, Balıkesirde nereye gidilmeli?">Balıkesir</a></li>
+                                    <li><a href="#" title="Muğla mekanları, Muğlada nereye gidilmeli?">Muğla</a></li>
+                                    <li><a href="#" title="Çanakkale mekanları, Çanakkalede nereye gidilmeli?">Çanakkale</a></li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <aside class="widget widget-list">
+                            <h2 class="widget-title">Yardım</h2>
+                            <div class="widget-content">
+                                <ul>
+                                    <li><a href="mailto:info@nereyegidilmeli.com" title="Mekanımı Nasıl Eklerim?">Mekanımı Nasıl Eklerim?</a></li>
+                                    <li><a href="/etkinlikler/yaklasan-etkinlikler" title="Yaklaşan Etkinlikler">Yaklaşan Etkinlikler</a></li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <aside class="widget tb-subscribe-widget">
+                            <h4 class="widget-title">E-Bülten Üyeliği</h4>
+                            <div class="widget-content">
+                                <div class="subscribe-box">
+                                    <p>Kayıt ol ve yeni eklenen etkinlikler & blog yazılarından haberdar ol !</p>
+                                    <div class="subscribe-form">
+                                        <form method="post" id="mc-form" class="dv-form" enctype="multipart/form-data">
+
+                                            <div class="form-group">
+                                                <input id="mc-email" name="Eposta" placeholder="E-mail adresiniz" type="email">
+                                                <button class="btn btn-default" name="Subscribe" id="subscribe-btn" type="submit">Üye Ol</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </aside>
+                    </div><!--~./ end subscribe widget ~-->
+                </div>
+            </div>
+        </div><!--~./ end footer widgets area ~-->
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="copyright-text">
+                            <p>© Copyright 2020 Nereye Gidilmeli. Tüm hakları saklıdır.</p>
+                        </div>
+                    </div><!--~./ end copyright ~-->
+
+                </div>
+            </div>
+        </div><!--~./ end footer bottom area ~-->
+    </footer>
+
+    <div id="header_search_model" class="header-search-model modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog header-search-area" role="document">
+            <div class="header-search-area-inner">
+                <div class="modal-header">
+                    <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
+                        <img src="../Content/assets/images/icon/close.png" alt="close">
+                    </button>
+                </div>
+                <div class="search-form modal-content">
+                    <form id="mekanform" action="javascript:(0)">
+                        <input type="search" name="q" placeholder="Mekan Arayın">
+                        <button type="submit"><span class="icon-search32"></span></button>
+                    </form>
+                    <div class="search-by-cat">
+
+
+                        <a href="#" title="kategori adı" class="single-cat restaurant">
+                            <div class="icon">
+                                <span class="fa fa-home"></span>
+                            </div>
+                            <div class="text">
+                                kategori adı
+                            </div>
+                        </a>
+
+                    </div>
+                </div><!--~./ search-form ~-->
+            </div>
+        </div>
+    </div><!--~./ end header search model ~-->
+
+
+    <div id="reg_form_model" class="user-reg-form-area modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog register-modal-area" role="document">
+            <div class="register-modal-area-outer-inner">
+                <div class="modal-header">
+                    <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
+                        <img src="../Content/assets/images/icon/close.png" alt="close">
+                    </button>
+                </div>
+                <div class="modal-content user-register-area">
+                    <!--~~~ Start User Signin Area ~~~-->
+                    <div class="user-signin-area">
+                        <div class="user-left-thumb">
+                            <img src="../Content/assets/images/others/login-thumb.jpg" alt="thumb">
+                        </div>
+
+                        <div class="form-content">
+                            <h3>Hesaba Giriş</h3>
+                            <form id="girisform" class="default-form signin-form" enctype="multipart/form-data">
+
+
+                                <div class="form-group hidden" id="girismsg">
+
+                                    <p id="bilgihata" class="hidden">
+                                        Giriş bilgileriniz hatalı, bilgilerinizi kontrol edip yeniden deneyebilirsiniz.
+                                    </p>
+
+                                    <p id="uyeyok" class="hidden">
+                                        Bu e-posta adresine ait bir üyelik bulunamadı. <br />
+                                        Hemen <a href="#" class="btn-signin-now" title="Üye Ol!">üye olun!</a>
+                                    </p>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <input id="email" name="Kullanici.Email" class="form-controllar" type="email" placeholder="E-mail adresi">
+                                </div><!--/.form-group-->
+
+                                <div class="form-group">
+                                    <input id="pass" name="Kullanici.Parola" class="form-controllar" type="password" placeholder="Parola">
+                                </div><!--/.form-group-->
+
+                                <div class="remember-and-password pull-right">
+                                    <div class="forget-pass pull-right">
+                                        <a class="btn-password" href="#" title="Şifremi Unuttum!">Şifremi Unuttum</a>
+
+                                    </div>
+
+                                </div><!--/.remember-and-password-->
+
+                                <div class="form-btn-group">
+                                    <button type="submit" class="btn btn-default">
+                                        giriş yap
+                                    </button>
+                                    <div class="reg-others-midea">
+                                        <div class="text">
+                                            Sosyal Hesap İle Giriş
+                                        </div>
+                                        <div class="midea-icons">
+                                            <ul class="social-share">
+                                                <li><a class="facebook" href="javascript:SosyalGiris('facebook')" title="Facebook İle Giriş"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a class="twitter" href="javascript:SosyalGiris('twitter')" title="Twitter İle Giriş"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a class="google-plus" href="javascript:SosyalGiris('gplus')" title="Google Plus İle Giriş"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a class="linkedin" href="javascript:SosyalGiris('linkedin')" title="Linkedin İle Giriş"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <div class="login-form-register-now mt-3">
+                                Üye değil misiniz? Hemen <a class="btn-signin-now" href="#" title="Üye Olun!">Üye Olun!</a>
+                            </div>
+                        </div>
+                    </div><!--~./ end user signin area ~-->
+                    <!--~~~ Start User Signup Area ~~~-->
+                    <div class="user-signup-area">
+
+                        <div class="user-left-thumb">
+                            <img src="../Content/assets/images/others/reg-thumb.jpg" alt="thumb">
+                        </div>
+
+                        <div class="form-content">
+                            <h3>Hesap Oluştur</h3>
+
+                            <form id="kayitform" class="default-form signup-form" enctype="multipart/form-data">
+
+
+                                <div class="form-group">
+                                    <input id="email-up" name="kullanici.Email" class="form-controllar" type="email" placeholder="Email Adresi">
+                                </div><!--/.form-group-->
+                                <div class="form-group">
+                                    <input id="pass-up" name="kullanici.Parola" class="form-controllar" type="password" placeholder="Parola">
+                                </div><!--/.form-group-->
+
+                                <div class="form-group">
+                                    <input id="pass-up-confirm" name="kullanici.ParolaTekrari" class="form-controllar" type="password" placeholder="Parola Tekrar">
+                                </div><!--/.form-group-->
+
+
+                                <div class="form-btn-group">
+                                    <button type="submit" class="btn btn-default">
+                                        kayıt
+                                    </button>
+                                    <div class="reg-others-midea">
+                                        <div class="text">
+                                            Sosyal Hesap İle Giriş
+                                        </div>
+                                        <div class="midea-icons">
+                                            <ul class="social-share">
+                                                <li><a class="facebook" href="#" title="Facebook İle Giriş"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a class="twitter" href="#" title="Twitter İle Giriş"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a class="google-plus" href="#" title="Google İle Giriş"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a class="linkedin" href="#" title="Linkedin İle Giriş"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="login-form-register-now">
+                                        Zaten üye misiniz? Hesabınıza <a class="btn-register-now" href="#" title="Giriş Yap!">giriş yapın!</a>
+                                    </div>
+
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div><!--~./ end user signup area ~-->
+
+                    <div class=" user-password-area">
+
+                        <div class="user-left-thumb">
+                            <img src="../Content/assets/images/others/reg-thumb.jpg" alt="thumb">
+                        </div>
+
+                        <div class="form-content">
+                            <h3>Şifremi Unuttum</h3>
+
+                            <form id="sifreform" class="default-form signup-form" enctype="multipart/form-data">
+
+
+                                <div class="form-group">
+                                    <input id="email-up" name="Email" class="form-controllar" type="email" placeholder="Email Adresi">
+                                </div><!--/.form-group-->
+
+
+                                <div class="form-btn-group">
+                                    <button type="submit" class="btn btn-default">
+                                        Gönder
+                                    </button>
+
+
+
+                                    <div class="reg-others-midea">
+                                        <div class="text">
+                                            Sosyal Hesap İle Giriş
+                                        </div>
+                                        <div class="midea-icons">
+                                            <ul class="social-share">
+                                                <li><a class="facebook" href="#" title="Facebook İle Giriş"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a class="twitter" href="#" title="Twitter İle Giriş"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a class="google-plus" href="#" title="Google İle Giriş"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a class="linkedin" href="#" title="Linkedin İle Giriş"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="login-form-register-now">
+                                        Giriş yapmak için <a class="btn-register-now" href="#" title="Giriş Yap!">tıklayınız!</a>
+                                    </div>
+
+                                    <div class="login-form-register-now">
+                                        Üye değil misiniz? Hemen <a class="btn-signin-now" title="Üye Ol!" href="#">Üye Olun!</a>
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../Content/assets/js/jquery.min.js"></script>
+
+
+
+
+
+    <script id="msgtemplate" type="text/template">
+        <div class="row msg mb-2">
+            <div class="col-md-12">
+                {{msg}}
+            </div>
+        </div>
+    </script>
+
+
+
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+
+    <script src="../Content/assets/js/script.js"></script>
+
+
+    <script id="scripts"></script>
+    
+
+</body>
+</html>
