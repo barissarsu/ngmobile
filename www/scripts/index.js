@@ -13,7 +13,7 @@
         document.addEventListener('resume', onResume.bind(this), false);
 
           
-
+        //alert("Test")
 
    
 
@@ -24,7 +24,7 @@
             success: function (result) {
                 $("#header").html(result);
 
-
+             
             }
 
 
@@ -53,10 +53,35 @@
 
      
 
-
+        indexislem();
 
 
     };
+
+
+    function indexislem() {
+        var app = angular.module("myapp", []);
+
+        app.controller("mycontroller", function ($scope, $http) {
+
+            $scope.adi = "test";
+
+            $http.get("https://localhost:44385/api/mekan").then(function (result) {
+
+                $scope.mekanlar = result.data;
+            })
+
+
+            $http.get("https://localhost:44385/api/kategori/getlist?tip=1").then(function (result) {
+                console.log(result);
+                $scope.mekankat = result.data;
+            })
+
+
+
+        })
+
+    }
 
 
     //function baslat() {

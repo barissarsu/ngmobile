@@ -1,40 +1,4 @@
-﻿
-<script src="../Scripts/angular.min.js"></script>
-<!--<script src="../Scripts/angular-route.min.js"></script>-->
-<script>
-    var app = angular.module("myapp", []);
-
-    app.controller("mycontroller", function ($scope, $http) {
-
-
-
-        $http.get("https://localhost:44385/api/mekan").then(function (result) {
-            //console.log(result);
-            $scope.mekanlar = result.data;
-        })
-
-
-        $http.get("https://localhost:44385/api/kategori/getlist?tip=1").then(function (result) {
-            console.log(result);
-            $scope.mekankat = result.data;
-        })
-
-
-
-    })
-
-
-</script>
-
-
-
-
-
-
-
-
-
-<script src="../Content/assets/js/bootstrap.min.js"></script>
+﻿<script src="../Content/assets/js/bootstrap.min.js"></script>
 <script src="../Content/assets/js/owl.carousel.min.js"></script>
 <script src="../Content/assets/js/ResizeSensor.min.js"></script>
 <script src="../Content/assets/js/theia-sticky-sidebar.min.js"></script>
