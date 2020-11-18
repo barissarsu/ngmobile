@@ -12,19 +12,18 @@
         document.addEventListener( 'pause', onPause.bind( this ), false );
         document.addEventListener('resume', onResume.bind(this), false);
 
-          
-        //alert("Test")
 
-   
+        indexislem();
+       
+
 
         $.ajax({
-            url: "../header.html",
+            url: "header.html",
             type: "get",
             dataType: "html",
             success: function (result) {
                 $("#header").html(result);
 
-             
             }
 
 
@@ -32,55 +31,35 @@
 
 
 
-        setTimeout(function () {
+        //setTimeout(function () {
 
-            $.ajax({
-                url: "../script.html",
-                type: "get",
-                dataType: "html",
-                success: function (result) {
-
-
-                    $("#scripts").html(result);
-
-                }
+        //    $.ajax({
+        //        url: "script.html",
+        //        type: "get",
+        //        dataType: "html",
+        //        success: function (result) {
 
 
-            });
+        //            $("#scripts").html(result);
+
+        //        }
 
 
-        },1000)
+        //    });
+
+
+        //},1000)
 
      
 
-        indexislem();
 
 
     };
 
 
     function indexislem() {
-        var app = angular.module("myapp", []);
 
-        app.controller("mycontroller", function ($scope, $http) {
-
-            $scope.adi = "test";
-
-            $http.get("https://localhost:44385/api/mekan").then(function (result) {
-
-                $scope.mekanlar = result.data;
-            })
-
-
-            $http.get("https://localhost:44385/api/kategori/getlist?tip=1").then(function (result) {
-                console.log(result);
-                $scope.mekankat = result.data;
-            })
-
-
-
-        })
-
+      
     }
 
 
