@@ -13,21 +13,21 @@
         document.addEventListener('resume', onResume.bind(this), false);
 
 
-        indexislem();
+        //indexislem();
        
 
 
-        $.ajax({
-            url: "header.html",
-            type: "get",
-            dataType: "html",
-            success: function (result) {
-                $("#header").html(result);
+        //$.ajax({
+        //    url: "header.html",
+        //    type: "get",
+        //    dataType: "html",
+        //    success: function (result) {
+        //        $("#header").html(result);
 
-            }
+        //    }
 
 
-        });
+        //});
 
 
 
@@ -110,3 +110,86 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+
+
+
+
+var app = angular.module("myapp", []);
+
+//var apiURL = "https://localhost:44385/api/";
+
+var apiURL = "https://testapi.nereyegidilmeli.com/api/";
+
+
+
+app.controller("mycontroller", function ($scope, $http) {
+
+
+
+
+    //$scope.names = [{Name:"Barış",Country:"Türkiye"},{Name:"Ahmedov",Country:"Azerbaycan"}]
+
+
+
+    //$.get(apiURL + "mekan/HtmlDeneme").done(function (data) {
+    //    console.log(data);
+    //    $scope.html = "<b>Test</b>";
+    //})
+
+
+
+
+
+    $http.get(apiURL + "kategori/getlist?tip=1").then(function (result) {
+
+        $scope.mekankats = result.data;
+
+
+
+
+    })
+
+
+
+
+    $http.get(apiURL + "mekan").then(function (result) {
+
+        $scope.mekanlar = result.data;
+    })
+
+
+
+
+
+    $http.get(apiURL + "kategori/getlist?tip=2").then(function (result) {
+        $scope.etkinlikkats = result.data;
+
+
+        console.log(result.data);
+
+    })
+
+
+
+    $http.get(apiURL + "etkinlik/AnasayfaEtkinlikleriListele").then(function (result) {
+
+        console.log(result.data);
+
+        $scope.etkinlikler = result.data;
+    })
+
+
+
+    $http.get(apiURL + "blog/AnasayfaBlogYazilari").then(function (result) {
+        console.log(result.data);
+
+
+        $scope.blogyazilari = result.data;
+
+    })
+
+
+
+})
+

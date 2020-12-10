@@ -1,10 +1,11 @@
 ﻿<!DOCTYPE html>
-<html ng-app="myapp" ng-controller="mekandetay">
+<html ng-app="myapp" ng-controller="mekanlar">
 <head>
     <!--
         Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
         For details, see http://go.microsoft.com/fwlink/?LinkID=617521
     -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src * gap://ready file:; style-src 'self' 'unsafe-inline' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; img-src * data: 'unsafe-inline'">-->
     <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -12,569 +13,650 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <!--<link rel="stylesheet" type="text/css" href="css/index.css">-->
-    <title>{{mekan.Title}}</title>
+    <title>Nereye Gidilmeli Mobil Uygulaması</title>
 
 
 
-    <link rel="stylesheet" href="../Content/assets/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="../Content/assets/css/icomoon.css" />
+    <link rel="stylesheet" href="https://nereyegidilmeli.com/Content/assets/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://nereyegidilmeli.com/Content/assets/css/icomoon.css" />
 
-    <link rel="shortcut icon" href="../Content/assets/images/favicon.png" />
-    <link rel="stylesheet" href="../Content/assets/css/plugins.css" />
+    <link rel="shortcut icon" href="https://nereyegidilmeli.com/Content/assets/images/favicon.png" />
+    <link rel="stylesheet" href="https://nereyegidilmeli.com/Content/assets/css/plugins.css" />
+    <link rel="stylesheet" href="https://nereyegidilmeli.com/Content/style.css" />
 
-    <link rel="stylesheet" href="../Content/style.css" />
+    <script src="https://nereyegidilmeli.com/Content/assets/js/modernizr.min.js"></script>
+    <script src="https://nereyegidilmeli.com/Content/assets/js/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
 
-    <script src="../Content/assets/js/modernizr.min.js"></script>
 
-    <script src="../Scripts/angular.min.js"></script>
 
-    <link rel="stylesheet" href="../Content/assets/css/jquery.fancybox.min.css" />
+    <script src="scripts/index.js"></script>
+
+
+    <script id="menukattemplate" type="text/template">
+        <a class="cat-item" href="mekanlar.html?kategori={{katid}}">
+            <div class="cat-thumb">
+                <img src="https://nereyegidilmeli.com/Content/Upload/Kategoriler/{{kapakfoto}}" alt="">
+            </div>
+            <span class="cat-name">{{katadi}}</span>
+        </a>
+    </script>
+
+
+    <script id="headerkattemplate" type="text/template">
+        <a href="mekanlar.html?katid={{katid}}" class="cat-item">
+            <div class="icon">
+                <span class="fa {{icon}}"></span>
+            </div>
+            <div class="cat-name">
+                {{kategoriAdi}}
+            </div>
+        </a>
+    </script>
+
+
 </head>
-<body>
+<body ng-app="myapp" ng-controller="mycontroller">
 
-    <div id="header"></div>
 
+    <header class="site-header header-style-one">
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            Start Site Navigation
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <div class="site-navigation">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="navbar navbar-expand-lg navigation-area">
+
+
+                            <div class="mainmenu-area">
+                                <nav class="menu">
+                                    <ul id="nav">
+
+                                        <li class="dropdown-trigger mega-menu">
+                                            <a href="/mekanlar.html?url=mekan-1" title="Mekanlar">Mekanlar <span class="menu-label new"> keşfet</span></a>
+                                            <div id="menukat1" class="mega-menu-content carousel-nav-dots owl-carousel">
+
+                                                <!--<a class="cat-item" href="#" ng-repeat="y in mekankats">
+                                                    <div class="cat-thumb">
+                                                        <img src="https://nereyegidilmeli.com/Content/Upload/Kategoriler/" alt="">
+                                                    </div>
+                                                    <span class="cat-name" ng-bind="y.KategoriAdi">xxx</span>
+                                                </a>-->
+
+                                            </div><!--/.mega-menu-content-->
+                                        </li>
+                                        <li class="dropdown-trigger mega-menu">
+                                            <a href="/etkinlikler" title="Etkinlikler">Etkinlikler <span class="menu-label new">eğlen</span></a>
+                                            <div id="menukat2" class="mega-menu-content carousel-nav-dots owl-carousel">
+                                                <!--<a ng-repeat="etkkat in etkinlikkats" class="cat-item" href="#" title="Konserler">
+                                                    <div class="cat-thumb">
+                                                        <img src="https://nereyegidilmeli.com/Content/Upload/Kategoriler/eglence-1.jpg" alt="cat">
+                                                    </div>
+                                                    <span class="cat-name">{{etkkat.KategoriAdi}}</span>
+                                                </a>-->
+                                            </div><!--/.mega-menu-content-->
+                                        </li>
+
+                                        <li><a href="/blog" title="Blog">Blog</a></li>
+
+                                    </ul>
+                                </nav><!--/.menu-->
+                            </div><!--~./ mainmenu-wrap ~-->
+
+                            <div class="site-logo-block">
+                                <a class="navbar-brand site-logo" title="Nereyegidilmeli.com" href="index.html">
+                                    <img src="https://nereyegidilmeli.com/Content/assets/images/logo/logo2nry.svg" width="198" alt="Nereye Gidilmeli?">
+                                    <img src="https://nereyegidilmeli.com/Content/assets/images/logo/logo1nry.svg" width="198" alt="Nereye Gidilmeli?">
+
+                                </a>
+                            </div><!--~./ site-logo-block ~-->
+
+
+
+                            <div class="header-navigation-right">
+
+
+
+                                <div class="search-wrap">
+                                    <div class="search-btn" data-toggle="modal" data-target="#header_search_model">
+                                        <span class="icon icon-search32"></span>
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="user-registration-area dropdown" style="margin-right:20px">
+                                    <a class="user-reg-btn" title="Giriş/Üyelik" href="#" data-toggle="modal" data-target="#reg_form_model">
+                                        <span class="icon icon-user-1"></span>
+                                        <span class="text">Giriş/Üyelik</span>
+                                    </a>
+
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--~./ site-navigation ~-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            Start Mobile Menu
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <div class="mobile-menu">
+            <a class="mobile-logo" href="/" title="Nereye Gidilmeli?">
+                <img src="https://nereyegidilmeli.com/Content/assets/images/logo/logo1nry.svg" width="125" alt="Nereye Gidilmeli?">
+            </a>
+        </div><!--~~./ end mobile menu ~~-->
+    </header>
 
 
 
     <div id="sticky-header"></div><!--~./End site header ~-->
 
-    <div class="site-content">
 
-      
 
-        <div class="listing-todo-thumbnail-area">
-            <div class="todo-thumb bg-image bg-overlay" style="background-image:url(http://nereyegidilmeli.com/Content/Upload/Mekanlar/{{mekan.bannergorsel}});"></div>
-
-            <div class="listing-todo-header">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="listing-todo-content text-white text-center">
-                                <div class="todo-brand-logo">
-                                    <img src="http://nereyegidilmeli.com/Content/Upload/Mekanlar/{{mekan.kapakgorsel}}" alt="{{mekan.KapakGorsel}}">
+    <div class="page-title-area text-white bg-image bg-overlay" style="background-image:url();">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-header-content">
+                        <form id="mekanform" action="javascript:(0)" class="hero-search-form searchform style-two">
+                            <div class="inner-form">
+                                <div class="hero-form-input search">
+                                    <input id="search" type="text" name="q" placeholder="Mekan ismi giriniz..." />
                                 </div>
+                                <select name="sehir" class="hero-form-input custom-select location">
+                                    <option value="">Konum </option>
 
-                                <h1 class="title">{{mekan.MekanAdi}}</h1>
+                                    <option value="">@sehir.SehirAdi</option>
+            
+                                    <option value="">@sehir.SehirAdi</option>
 
-                                <div class="todo-location">
-                                    <span class="icon-location"></span>
+                                </select>
+                                <select name="semt" class="hero-form-input custom-select location">
+                                    <option value="">Konum </option>
+                                   
+                                    <option value="@UrlBusinnes.Replace(semt.town_name)">@semt.town_name</option>
+                              
+                                </select>
+                                <select name="kategori" class="hero-form-input custom-select category">
+                                    <option value="">Kategori</option>
 
-                                    {{mekan.Adres}} <br />
-                                    {{mekan.Semt}}, {{mekan.Sehir}}
-                                </div><!--./ todo-location -->
-                                <div class="listing-rating">
-                                    <span class="rating">
-
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-half-o"></i>
-
-                                        <a href="#">{{yorumsayisi}} Yorum</a>
-                                    </span>
+                          
+                                    <option value="">kategori</option>
+                       
+                                </select>
+                                <div class="hero-form-input submitbtn">
+                                    <button class="btn btn-default" type="submit">Ara</button>
                                 </div>
-                            </div><!--./ listing-todo-content -->
-                        </div>
-                    </div>
-                </div>
-                <div class="listing-todo-feature">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="listing-todo-feature-list">
-
-                                    <a href="{{yoltariflink}}" rel="external" title="{{mekanadi}} Yol Tarifi" class="single-list">
-                                        <span class="icon-map2"></span>
-                                        <span class="text">Yol Tarifi</span>
-                                    </a>
-
-                                    <a href="#" class="single-list">
-                                        <span class="icon-share1"></span>
-                                        <span class="text">Paylaş</span>
-                                    </a>
-
-                                    <a href="#yorumlar" class="single-list">
-                                        <span class=" icon-comment"></span>
-                                        <span class="text">Yorumlar</span>
-                                    </a>
-
-
-                                    <a id="favbtn" href="javascript:MekanKaydet({{id}})" class="single-list">
-                                        <span class="icon-bookmark1"></span>
-                                        <span class="text">Favori Listenizde</span>
-                                    </a>
-
-
-                                    <a href="javascript:window.print();" class="single-list">
-                                        <span class="fa fa-print"></span>
-                                        <span class="text">Yazdır</span>
-                                    </a>
-                                    <a href="mailto:{{email}}" title="{{mekanadi}} Mail Gönder" class="single-list">
-                                        <span class="icon-email-1"></span>
-                                        <span class="text">E-mail Gönder</span>
-                                    </a>
-                                </div><!--./ listing-todo-feature-list -->
+                            </div>
+                        </form>
+                        <div class="breadcrumb-content-area">
+                            <div class="page-header-caption">
+                                <h1>@Model.AktifKategoriAdi</h1>
+                            </div>
+                            <div class="breadcrumb-area">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="@Url.Action(" Index")">Anasayfa</a></li>
+                                    <li aria-current="page" class="breadcrumb-item active">@Model.AktifKategoriAdi</li>
+                                </ol>
                             </div>
                         </div>
+                        <h1>@ViewBag.SayfaBaslik</h1>
                     </div>
-                </div><!--./ listing-todo-feature -->
-            </div><!--./ listing-todo-header -->
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!--~~~~~ Start Main Wrapper ~~~~~-->
+    <div class="site-content">
+
         <div class="main-wrapper ptb-100">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <!--~~~~~ Start Site Main ~~~~~-->
+                    <div class="col-lg-12">
+
                         <main class="site-main">
-                            <div class="single-listing-todo">
-                                <!--~~~~~ Start Listing Description ~~~~~-->
-                                <div class="listing-description">
-                                    <div class="title-icon">
-                                        <h2 class="title"><span class="icon-folder2"></span>Genel Bilgiler</h2>
-                                    </div><!--~./ title-icon ~-->
-                                    <div class="box-inner-content">
-                                        sssssss
-                                    </div>
-                                </div><!--~./ end listing description ~-->
-                                <!--~~~~~ Start Listing Gallery ~~~~~-->
-                                <div class="listing-gallery">
-                                    <div class="title-icon">
-                                        <h2 class="title"><span class="icon-photo-camera"></span>Foto Galeri</h2>
-                                    </div><!--~./ title-icon ~-->
-                                    <div class="box-inner-content">
-                                        <div class="listing-gallery-item">
-                                            <ul class="listing-gallery-slide owl-carousel carousel-nav-align-center">
-
-                                                <li class="item">
-                                                    <a title="{{mekanadi}}" href="../Content/Upload/Galeri/Buyuk/{{gorsel}}" class="lightbox-image" data-fancybox="project-gallery">
-                                                        <img src="../Content/Upload/Galeri/Buyuk/{{gorsel}}" alt="{{mekanadi}}">
-                                                    </a>
-                                                </li>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="search-filter-options mb-60">
+                                        <div class="row align-items-end">
 
 
-                                            </ul>
-                                            <ul class="thumbnails-wrapper">
 
-                                                <li class="thumbnails">
-                                                    <a href="#" title="{{mekanadi}}"><img src="../Content/Upload/Galeri/Kucuk/{{gorsel}}" alt="{{mekanadi}}"></a>
-                                                </li>
-
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div><!--~./ end listing gallery ~-->
-                                <!--~~~~~ Start Listing Amenities ~~~~~-->
-                                <div class="listing-amenities">
-                                    <div class="title-icon">
-                                        <h3 class="title"><span class="icon-list1"></span>Mekan Olanakları</h3>
-                                    </div><!--~./ title-icon ~-->
-                                    <div class="box-inner-content">
-                                        <div class="amenities-list">
-
-
-                                            <div class="single-amenitie">
-                                                <span class="icon-food"></span>
-                                                Organik Yemekler
+                                            <div class="col-lg-3 col-md-6">
+                                                <div class="show-products-category">
+                                                    <span>Mekanlar</span>
+                                                    <select name="kategori" class="option-form-input custom-select category">
+                                                        <option value="">Kategori</option>
+                                   
+                                                        <option value="@kat.Url">@kat.KategoriAdi</option>
+                                            
+                                                    </select>
+                                                </div>
                                             </div>
 
+                                            <div class="col-lg-9 col-md-6 ">
+                                                <div class="filter-by-grid-list">
+                                                    <span>Görünüm</span>
+                                                    <div class="filter-tab-area">
+                                                        <ul class="nav nav-tabs" role="tablist">
+                                                            <li>
+                                                                <a class="active" data-toggle="tab" href="#listing_list" role="tab"><i class="fa fa-bars"></i></a>
+                                                            </li>
+                                                            <li>
+                                                                <a data-toggle="tab" href="#listing_grid" role="tab"><i class="fa fa-th-large"></i></a>
+                                                            </li>
 
-
-                                            <div class="single-amenitie">
-                                                <span class="icon-girl"></span>
-                                                Çocuk Menüleri
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
 
+                                  
+                                            <div class="col-lg-12">
+                                                <div class="sort-by-tags">
+                                                    <div class="tags-by">İlgili Konular</div>
+                                                    <div class="tags-form-group">
 
 
-                                            <div class="single-amenitie">
-                                                <span class="icon-fire2"></span>
-                                                Sigara Alanı
+
+                                                        <div class="form-group">
+                                                            <input name="tag" id="listtag@(item.ID)" data-value="@item.Url" type="checkbox">
+                                                            <label for="listtag@(item.ID)" class="listtag">@item.Kelime</label>
+                                                        </div>
+
+
+
+
+
+                                                    </div>
+                                                </div>
                                             </div>
-
-
-
-                                            <div class="single-amenitie">
-                                                <span class="icon-placeholder1"></span>
-                                                Ücretsiz Otopark
-                                            </div>
-
-
-
-                                            <div class="single-amenitie">
-                                                <span class="fa fa-car"></span>
-                                                Vale
-                                            </div>
-
-
-
-                                            <div class="single-amenitie">
-                                                <span class="icon-connection"></span>
-                                                Ücretsiz Wifi
-                                            </div>
-
-
-
-
-                                            <div class="single-amenitie">
-                                                <span class="icon-book2"></span>
-                                                Rezervasyon
-                                            </div>
-
-
-
-                                            <div class="single-amenitie">
-                                                <span class="icon-card"></span>
-                                                Kredi Kartı İle Ödeme
-                                            </div>
-
-
-
-
-
-                                        </div>
-                                    </div>
-                                </div><!--~./ end listing amenities ~-->
-                                <!--~~~~~ Start Listing Video ~~~~~-->
-                                <div class="listing-video">
-                                    <div class="title-icon">
-                                        <h3 class="title"><span class="icon-file-video"></span>Tanıtım Videosu</h3>
-                                    </div><!--~./ title-icon ~-->
-                                    <div class="box-inner-content">
-                                        <div class="responsive-video" style="position:relative;">
-
-                                            aaaaa
-
+                                
 
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="tab-content filter-tab-content">
 
 
 
+                                <div class="tab-pane fade show active" id="listing_list" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-lg-8">
 
-                                <!--~~~~~ Start Listing Video ~~~~~-->
-                                <div class="listing-video">
-                                    <div class="title-icon">
-                                        <h3 class="title"><span class="fa fa-music"></span>Etkinlikler</h3>
-                                    </div><!--~./ title-icon ~-->
-                                    <div class="box-inner-content">
-                                        <div class="responsive-video" id="etkinlikler" style="position:relative;">
-
-
+                    
                                             <div class="popular-todo-item todo-item-list">
                                                 <div class="todo-thumbnail-area">
-                                                    <figure class="item-thumb">
-                                                        <img src="..Content/Upload/Etkinlikler/" alt="zzzzzzz">
-                                                    </figure><!--./ item-thumb -->
+                                                    <a href="" title="@mekan.MekanAdi">
+                                                        <figure class="item-thumb">
+                                               
+                                                            <img src="" alt="@mekan.MekanAdi">
+
+                                                        
+                                                            <img src="" alt="@mekan.MekanAdi">
+                                                       
+
+                                                        </figure>
+                                                    </a>
                                                     <div class="todo-overlay-info">
-                                                        <div class="todo-type rated">xxxxxxxxxxxx</div>
+
                                                         <div class="todo-meta-bottom">
-                                                            <a href="#" class="save">
+                                                            <a href="javascript:MekanKaydet(@mekan.ID)" data-id="@mekan.ID" title="@mekan.MekanAdi" class="save @(mekan.FavlistesindeMi ? " active":"")">
                                                                 <i class="fa fa-heart"></i>
-                                                                favorilerime ekle
+                                                              favorilerime ekle
                                                             </a>
                                                             <a href="#" class="photo">
                                                                 <i class="fa fa-image"></i>
-                                                                3 görsel
+                                                                @mekan.FotoSayisi görsel
                                                             </a>
                                                         </div>
-                                                    </div><!--./ todo-overlay-info -->
-                                                </div><!--./ todo-thumbnail-area -->
+                                                    </div>
+                                                </div>
 
                                                 <div class="content-entry-wrap">
                                                     <div class="todo-content">
-                                                        <h3 class="title"><a href="#" title="@etkinlik.Baslik">aaaaaaaa</a></h3>
-
+                                                        <h3 class="title"><a href="">@mekan.MekanAdi</a></h3>
                                                         <div class="todo-meta">
                                                             <div class="todo-location">
-
                                                                 <span class="icon-location"></span>
-                                                                xxxxxxxxxx
-
+                                                                @mekan.SemtAdi, @mekan.SehirAdi
                                                             </div>
 
+                                                     
                                                             <div class="todo-number">
                                                                 <span class="icon-phone"></span>
-                                                                33333333333333
+                                                               telefon no
                                                             </div>
+                                                      
 
-
-                                                        </div><!--./ todo-meta -->
+                                                        </div>
                                                         <div class="todo-summary">
-                                                            dsadasdadadada
+                                                            @Html.Raw(mekan.Aciklama)
                                                         </div>
-                                                    </div><!--./ todo-content -->
+                                                    </div>
                                                     <div class="todo-footer">
-                                                        <a href="#" title="a" class="todo-cat todo-cat-restaurant">
-                                                            <span class="icon-fast-food"></span>
-                                                            aaaaaaaaaaa
+                                                        <a href="@Url.Action(" Mekanlar", new { kategori=mekan.KategoriUrl, sehir="" , semt="" })" title="@mekan.KategoriAdi" class="todo-cat todo-cat-restaurant">
+                                                            <span class="@(!string.IsNullOrEmpty(mekan.KategoriIcon) ? mekan.KategoriIcon : " icon-fast-food")"></span>
+                                                         kategori adi
                                                         </a>
-                                                    </div><!--./ todo-footer -->
-                                                </div><!--./ content-entry-wrap -->
-                                            </div>
-
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-                                <div class="entry-footer ">
-                                    <div class="entry-tag">
-                                        Etiketler:
-
-                                        <a href="/mekanlar/xxxxx-mekanlari" title='zzzz etiketli mekanlara göz atın!' rel="tag">zzzzzzz</a>
-
-                                    </div><!--/.entry-tag-->
-                                </div><!--/.entry-footer-->
-
-
-                                <div id="yorumlar" class="listing-average-rating">
-                                    <div class="title-icon">
-                                        <h3 class="title"><span class="icon-review-1"></span>Yorum Ortalaması</h3>
-                                    </div><!--~./ title-icon ~-->
-                                    <div class="box-inner-content">
-                                        <div class="rating-overview">
-                                            <div class="rating-overview-left">
-                                                <div class="rating-overview-average">
-                                                    <div class="rating-no">5 Ort</div>
-                                                    <div class="listing-rating">
-                                                        <span class="rating">
-
-                                                            <i class="fa fa-star"></i>
-
-
-                                                            <i class="fa fa-star-o"></i>
-
-
-                                                        </span>
-                                                        <a href="#">3 Yorum</a>
                                                     </div>
                                                 </div>
-                                            </div><!--~./ rating-overview-left ~-->
-                                            <div class="rating-overview-right">
-                                                <div class="single-progress-bar">
-                                                    <div class="progress-type">Kalite</div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 10%;" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div><!--~./ single-progress-bar ~-->
-                                                <div class="single-progress-bar">
-                                                    <div class="progress-type">Hız</div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div><!--~./ single-progress-bar ~-->
-                                                <div class="single-progress-bar">
-                                                    <div class="progress-type">Fiyat</div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div><!--~./ single-progress-bar ~-->
-                                                <div class="single-progress-bar">
-                                                    <div class="progress-type">Servis</div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div><!--~./ single-progress-bar ~-->
-                                                <div class="single-progress-bar">
-                                                    <div class="progress-type">Konum</div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div><!--~./ single-progress-bar ~-->
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                            }
 
-                                <div class="listing-reviews-area">
-                                    <div class="title-icon">
-                                        <h3 class="title"><span class="icon-chat"></span>2 Yorum</h3>
-                                    </div><!--~./ title-icon ~-->
-                                    <div class="box-inner-content">
+                                          
+                                            <p>Maalesef şuan kriterlere uygun hiç mekan yok!</p>
+                                            <a class="btn btn-default" href="/mekanlar" title="Mekanlar">Tüm mekanları göster!</a>
+                                        
 
+                                            <nav class="navigation paging-navigation pagination-center">
+                                              
+                                                <ul class="nav-links">
 
-                                        <ol class="comment-list">
+                                                 
+                                                    <li class="nav-previous">
+                                                      
+                                                        <a href="@Url.Action(" Mekanlar",new { sehir=(Model.AktifSehir !=null ? UrlBusinnes.Replace(Model.AktifSehir.SehirAdi) : "" ), semt=(Model.AktifSemt !=null ? UrlBusinnes.Replace(Model.AktifSemt.town_name) : "" ), etiket=(Model.SeciliEtiketler.Any() ? Model.SeciliEtiketler.First() : "" ), kategori=(Model.AktifKategori !=null ? Model.AktifKategori.Url : "" ), sayfa=Model.AktifSayfa - 1, q=Request.QueryString["q"] })" title="Önceki">Önceki</a>
+                                                      
+                                                        <a href="@Url.Action(" Mekanlar",new { sehir=(Model.AktifSehir !=null ? UrlBusinnes.Replace(Model.AktifSehir.SehirAdi) : "" ), semt=(Model.AktifSemt !=null ? UrlBusinnes.Replace(Model.AktifSemt.town_name) : "" ), etiket=(Model.SeciliEtiketler.Any() ? Model.SeciliEtiketler.First() : "" ), kategori=(Model.AktifKategori !=null ? Model.AktifKategori.Url : "" ), q=Request.QueryString["q"] })" title="Önceki">Önceki</a>
+                                                   
 
-                                            <li id="comment-1" class="comment even thread-even depth-1 parent">
-                                                <article class="comment-body">
-                                                    <div class="comment-author vcard">
-                                                        <img alt="card" src="../Content/assets/images/comments/1.jpg" class="avatar photo">
-                                                        <b class="author-name">
-                                                            <a href="#" rel="external nofollow" class="url">aaaaaaaaaa</a>
-                                                        </b>
-                                                        <div class="reviews-no">
-                                                            <span class="number"><i class="fa fa-star"></i>1</span>
-                                                            <span class="text">Yanıt</span>
-                                                        </div>
-                                                    </div><!-- .comment-author -->
-                                                    <div class="comment-info">
-                                                        <div class="comment-info-inner">
-                                                            <div class="info-title-header">
-                                                                <h3 class="title">aaaaaaaaaaaaa</h3>
-                                                                <div class="comment-metadata">
-                                                                    <a href="#">
-                                                                        <span>xxxxxxxxxxx</span>
-                                                                    </a>
-                                                                </div><!-- .comment-metadata -->
-                                                            </div><!-- .info-title-header -->
-                                                            <div class="comment-rating">
-                                                                <span class="rating">
-
-                                                                    <i class="fa fa-star"></i>
-
-                                                                    <i class="fa fa-star-o"></i>
-
-                                                                </span>
-                                                            </div><!-- .comment-rating -->
-                                                        </div><!-- .comment-content -->
-                                                        <div class="comment-content">
-                                                            <p>dsadaaaaaaaaaaaaaaaa</p>
-                                                        </div><!-- .comment-content -->
-                                                        <div class="comment-meta">
-                                                            <div class="comment-meta-inner">
-                                                                <div class="like">
-                                                                    <a class="comment-link" href="#"><span class="icon-thumb-up"></span> Faydalı</a>
-                                                                </div>
-                                                                <div class="dislike">
-                                                                    <a class="comment-dislink" href="#"><span class="icon-dislike-thumb"></span> Faydasız</a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="reply">
-                                                                <a class="comment-reply-link" href="#"><span class="icon-reply1"></span> Yanıtla</a>
-                                                            </div>
-                                                        </div><!-- .comment-meta -->
-                                                    </div>
-                                                </article><!-- .comment-body -->
-                                                <ol class="children">
-
-
-                                                    <li id="comment-3" class="comment odd alt depth-2">
-                                                        <article class="comment-body">
-                                                            <div class="comment-author vcard">
-                                                                <img alt="card" src="../Content/assets/images/comments/1.jpg" class="avatar photo">
-                                                                <b class="author-name">
-                                                                    <a href="#" rel="external nofollow" class="url">dadadaa</a>
-                                                                </b>
-                                                                <div class="reviews-no">
-                                                                    <span class="number"><i class="fa fa-star"></i>3</span>
-                                                                    <span class="text">Yanıt</span>
-                                                                </div>
-                                                            </div><!-- .comment-author -->
-                                                            <div class="comment-info">
-                                                                <div class="comment-info-inner">
-                                                                    <div class="info-title-header">
-                                                                        <h3 class="title">sssssssssss</h3>
-                                                                        <div class="comment-metadata">
-                                                                            <a href="#">
-                                                                                <span>xxxxxxxxx</span>
-                                                                            </a>
-                                                                        </div><!-- .comment-metadata -->
-                                                                    </div><!-- .info-title-header -->
-
-                                                                </div><!-- .comment-content -->
-                                                                <div class="comment-content">
-                                                                    <p>1</p>
-                                                                </div><!-- .comment-content -->
-                                                                <div class="comment-meta">
-                                                                    <div class="comment-meta-inner">
-                                                                        <div class="like">
-                                                                            <a class="comment-link" href="#"><span class="icon-thumb-up"></span> Faydalı</a>
-                                                                        </div>
-                                                                        <div class="dislike">
-                                                                            <a class="comment-dislink" href="#"><span class="icon-dislike-thumb"></span> Faydasız</a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="reply">
-                                                                        <a class="comment-reply-link" href="#"><span class="icon-reply1"></span> Yanıtla</a>
-                                                                    </div>
-                                                                </div><!-- .comment-meta -->
-                                                            </div>
-                                                        </article><!-- .comment-body -->
                                                     </li>
+                                              
+
+                                          
+                                                    <li class=""><a class="page-numbers" title="@i. sayfa" href="@Url.Action(" Mekanlar",new { sehir=(Model.AktifSehir !=null ? UrlBusinnes.Replace(Model.AktifSehir.SehirAdi) : "" ), semt=(Model.AktifSemt !=null ? UrlBusinnes.Replace(Model.AktifSemt.town_name) : "" ), etiket=(Model.SeciliEtiketler.Any() ? Model.SeciliEtiketler.First() : "" ), kategori=(Model.AktifKategori !=null ? Model.AktifKategori.Url : "" ), q=Request.QueryString["q"] })">@i</a></li>
+                                          
+                                                    <li class=""><a class="page-numbers" title="@i. sayfa" href="@Url.Action(" Mekanlar",new { sehir=(Model.AktifSehir !=null ? UrlBusinnes.Replace(Model.AktifSehir.SehirAdi) : "" ), semt=(Model.AktifSemt !=null ? UrlBusinnes.Replace(Model.AktifSemt.town_name) : "" ), etiket=(Model.SeciliEtiketler.Any() ? Model.SeciliEtiketler.First() : "" ), kategori=(Model.AktifKategori !=null ? Model.AktifKategori.Url : "" ), sayfa=i, q=Request.QueryString["q"] })">@i</a></li>
+                                        
+
+                                                
+                                                    <li class="nav-next">
+                                                        <a href="#" title="Sonraki">Sonraki</a>
+                                                    </li>
+                                               
+
+                                                </ul>
+                                           
 
 
-                                                </ol><!-- .children -->
-                                            </li>
 
-
-                                        </ol>
-
-                                        <p>Henüz hiç yorum yapılmamış!</p>
+                                            </nav>
 
 
 
 
+                                        </div>
+
+
+                                        <div class="col-lg-4">
+                                            <div class="sidebar sidebar-two">
+
+                                                <aside class="widget bt-widget-search-filter">
+                                                    <h4 class="widget-title"><span class="icon-search32"></span>Arama Tercihleri</h4>
+                                                    <div class="widget-content">
+
+                                                        <form id="sbmekanform" name="searchfilterForm" method="post" action='#' class="search_filter_form searchform">
+                                                            <div class="filter-group">
+                                                                <input id="filter_search" placeholder="Mekan adı..." name="q" type="text" class="form-controllar">
+                                                            </div>
+
+                                                            <div class="filter-group">
+                                                                <select name="kategori" class="custom-select category">
+                                                                    <option value="">Kategori</option>
+                                                                    
+                                                                    <option value="">kategori</option>
+                                                                  
+
+
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="filter-group">
+                                                                <select name="sehir" class="custom-select country">
+                                                                    <option value="">Şehir</option>
+                                                                   
+                                                                    <option value="">sehir</option>
+                                                                 
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="filter-group">
+                                                                <select name="semt" class="custom-select country">
+                                                                    <option value="">Semt</option>
+                                                                   
+                                                                    <option value="">semt</option>
+                                                                    
+                                                                </select>
+                                                            </div>
+
+
+
+                                                            <!--<div class="filter-group filter_location">
+                                                                <input id="filter_location" placeholder="Location" type="text" class="form-controllar">
+                                                            </div>
+                                                            <div class="filter-group">
+                                                                <div class="search-distance-value">
+                                                                    Radius:
+                                                                    <span class="distance-value">60</span>KM
+                                                                </div>
+                                                                <div id="search_distance"></div>
+                                                            </div>
+                                                            <div class="filter-group">
+                                                                <div class="search-search-price">
+                                                                    Price: $0 - $
+                                                                    <span class="price-value">1000</span>
+                                                                </div>
+                                                                <div id="search_price"></div>
+                                                            </div>-->
+                                                            <!---->
+                                                            <!--<div class="filter-group">
+                                                                <strong>Filter By Features</strong>
+                                                                <div class="tags-form-group">
+                                                                    <div class="form-group">
+                                                                        <input name="tag" id="filtertag0" type="checkbox">
+                                                                        <label for="filtertag0" class="listtag">Coupons</label>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input name="tag" id="filtertag1" type="checkbox">
+                                                                        <label for="listtag1" class="filtertag1"> Smoking Allowed</label>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input name="tag" id="filtertag2" type="checkbox">
+                                                                        <label for="filtertag2" class="listtag">Accessories</label>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input name="tag" id="filtertag3" type="checkbox">
+                                                                        <label for="filtertag3" class="listtag">Camping</label>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input name="tag" id="filtertag4" type="checkbox">
+                                                                        <label for="filtertag4" class="listtag"> Field trips</label>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input name="tag" id="filtertag5" type="checkbox">
+                                                                        <label for="filtertag5" class="listtag">Getway</label>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input name="tag" id="filtertag6" type="checkbox">
+                                                                        <label for="filtertag6" class="listtag">Hot Spots</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>-->
+
+                                                            <div class="form-submit">
+                                                                <button class="btn btn-default">filtrele</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </aside>
+
+                                                <aside class="widget widget-todo-categories">
+                                                    <h4 class="widget-title"><span class="icon-list1"></span>Popüler Kategoriler</h4>
+                                                    <div class="widget-content">
+                                                        <ul>
+
+                                                           
+                                                            <li class="cat-item">
+                                                                <a href="/mekanlar/@item.Url" title="@item.KategoriAdi Mekanları">@item.KategoriAdi<span class="count">@DBBusinnes.MekanSayisi(item.Id)</span></a>
+                                                            </li>
+                                                         
+
+
+
+                                                        </ul>
+                                                    </div>
+                                                </aside>
+                                                <aside class="widget widget-recent-view-todo">
+                                                    <h4 class="widget-title"><span class="icon-eye22"></span>İlginizi Çekebilir</h4>
+                                                    <div class="widget-content">
+                                                      
+                                                        <div class="todo-side-item popular-todo-item">
+                                                            <div class="todo-thumbnail-area">
+                                                                <figure class="item-thumb">
+                                                                
+                                                                    <img src="@Url.Content(" ~/Content/Upload/Mekanlar/" + item.KapakGorsel)" alt="@item.MekanAdi">
+                                                             
+                                                                    <img src="@Url.Content(" ~/Content/assets/images/todo/1/2.jpg")" alt="@item.MekanAdi">
+                                                                    
+                                                                </figure>
+                                                            </div>
+
+                                                            <div class="content-entry-wrap">
+                                                                <div class="todo-content">
+                                                                    <h3 class="title"><a href="@Url.Action(" MekanDetay",new { url=item.Url })" title="@item.MekanAdi">@item.MekanAdi</a></h3>
+                                                                    <!--<div class="todo-rating">
+                                                                        <div class="rating-value">
+                                                                            <span>4.8</span>16 Ratings
+                                                                        </div>
+                                                                    </div>-->
+                                                                    <div class="todo-meta">
+                                                                        <div class="todo-location">
+                                                                            <span class="icon-location"></span>
+                                                                            semt, sehir
+                                                                        </div>
+                                                                 
+                                                                        <div class="todo-number">
+                                                                            <span class="icon-phone"></span>
+                                                                          telefon
+                                                                        </div>
+                                                                        
+                                                                    </div><!--./ todo-meta -->
+                                                                </div><!--./ todo-content -->
+                                                            </div><!--./ content-entry-wrap -->
+                                                        </div>
+                                                        
+
+
+
+
+
+                                                    </div>
+                                                </aside>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
+                                <div class="tab-pane fade" id="listing_grid" role="tabpanel">
+                                    <div class="row">
 
-                                <div class="listing-leave-review">
-                                    <div class="title-icon">
-                                        <h3 class="title"><span class="icon-comment"></span>Yorumda Bulun!</h3>
-                                    </div>
+                            
+                                        <div class="col-lg-4">
+                                            <div class="popular-todo-item">
+                                                <div class="todo-thumbnail-area">
+                                                    <figure class="item-thumb">
+                                                        
+                                                        <img src="@Url.Content(" ~/Content/Upload/Mekanlar/" + mekan.KapakGorsel)" alt="@mekan.MekanAdi">
+                                                        
+                                                        <img src="@Url.Content(" ~/Content/assets/images/todo/1/2.jpg")" alt="@mekan.MekanAdi">
+                                                        
+                                                    </figure>
+                                                    <div class="todo-overlay-info">
 
-
-                                    <div class="box-inner-content">
-                                        <div class="leave-review-content">
-                                            <form name="reviewForm" id='review_form' method="post" action='javascript:YorumYap()'>
-                                                <div class="review-box">
-                                                    <ul class="list">
-                                                        <li>
-                                                            <span class="text">Konum</span>
-                                                            <div class="review-rating"></div>
-                                                        </li>
-                                                        <li>
-                                                            <span class="text">Kalite</span>
-                                                            <div class="review-rating"></div>
-                                                        </li>
-                                                        <li>
-                                                            <span class="text">Hız</span>
-                                                            <div class="review-rating"></div>
-                                                        </li>
-                                                        <li>
-                                                            <span class="text">Servis</span>
-                                                            <div class="review-rating"></div>
-                                                        </li>
-                                                        <li>
-                                                            <span class="text">Fiyat</span>
-                                                            <div class="review-rating"></div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <p>
-                                                            <input type='text' name='title' class="form-controllar" required aria-required="true" placeholder="Başlık">
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <p>
-                                                            <textarea name='message' id='message' class="form-controllar" required aria-required="true" rows="8" cols="45" placeholder="Yorumunuz"></textarea>
-                                                        </p>
-                                                    </div>
-
-                                                    <div class="col-12">
-                                                        <p class="form-submit">
-                                                            <input type="submit" value="Gönder" id="submit" name="submit">
-                                                        </p>
+                                                        <div class="todo-meta-bottom">
+                                                            <a href="#" class="save">
+                                                                <i class="fa fa-heart"></i>
+                                                                favorilere ekle
+                                                            </a>
+                                                            <a href="#" class="photo">
+                                                                <i class="fa fa-image"></i>
+                                                                @mekan.FotoSayisi foto
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </form>
+                                                <div class="todo-content">
+                                                    <h3 class="title"><a href="@Url.Action(" MekanDetay",new { url=mekan.Url })">@mekan.MekanAdi</a></h3>
+
+                                                    <div class="todo-meta">
+                                                        <div class="todo-location">
+                                                            <span class="icon-location"></span>
+                                                            @mekan.SemtAdi, @mekan.SehirAdi
+                                                        </div>
+                                                        <div class="todo-number">
+                                                            <span class="icon-phone"></span>
+                                                            @mekan.Telefon
+                                                        </div>
+                                                    </div>
+                                                    <div class="todo-summary">
+                                                        @Html.Raw(mekan.Aciklama)
+                                                    </div>
+                                                </div>
+                                                <div class="todo-footer">
+                                                    <a href="/mekanlar/@mekan.KategoriUrl" title="@mekan.KategoriAdi" class="todo-cat todo-cat-restaurant">
+                                                        <span class="@(!string.IsNullOrEmpty(mekan.KategoriIcon) ? mekan.KategoriIcon : " icon-fast-food")"></span>
+                                                        @mekan.KategoriAdi
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
+                                  
                                     </div>
 
-                                    <p>
-                                        Yorum yapmak için <a data-toggle="modal" data-target="#reg_form_model" href="#">  üye girişi yapın!</a>
-                                    </p>
+                                    <nav class="navigation paging-navigation pagination-center">
+                           
+                                        <ul class="nav-links">
+
+                                      
+                                            <li class="nav-previous">
+                                           
+                                                <a href="@Url.Action(" Mekanlar",new { sayfa=Model.AktifSayfa - 1, kategori=Request.QueryString["kategori"], sehir=Request.QueryString["sehir"], semt=Request.QueryString["semt"] })" title="Önceki Blog Sayfası">Önceki</a>
+                                         
+                                                <a href="@Url.Action(" Mekanlar",new { kategori=Request.QueryString["kategori"], sehir=Request.QueryString["sehir"], semt=Request.QueryString["semt"] })" title="Önceki Blog Sayfası">Önceki</a>
+                                         
+
+                                            </li>
+                                         
+
+                                            <li class="@(Model.AktifSayfa == i ? " active" : "" )"><a class="page-numbers" title="Blog yazıları @i. sayfa" href="@Url.Action(" Mekanlar",new { kategori=Request.QueryString["kategori"], sehir=Request.QueryString["sehir"], semt=Request.QueryString["semt"]})">@i</a></li>
+                                  
+                                            <li class="@(Model.AktifSayfa == i ? " active" : "" )"><a class="page-numbers" title="Blog yazıları @i. sayfa" href="@Url.Action(" Mekanlar",new { sayfa=i, kategori=Request.QueryString["kategori"], sehir=Request.QueryString["sehir"], semt=Request.QueryString["semt"] })">@i</a></li>
+                               
+
+                                            <li class="nav-next">
+                                                <a href="@Url.Action(" Mekanlar",new { sayfa=Model.AktifSayfa + 1, kategori=Request.QueryString["kategori"], sehir=Request.QueryString["sehir"], semt=Request.QueryString["semt"] })" title="Sonraki Blog Sayfası">Sonraki</a>
+                                            </li>
+                                      
+
+
+                                        </ul>
+                                 
+
+
+
+                                    </nav>
 
 
 
@@ -585,173 +667,10 @@
 
                             </div>
                         </main>
-                        <!--~./ end site main ~-->
                     </div>
-
-                    <!--~~~~~ Start sidebar ~~~~~-->
-                    <div class="col-lg-4">
-                        <div class="sidebar sidebar-one">
-                            <aside class="widget bt-business-info-widget">
-                                <h4 class="widget-title"><span class="icon-exam"></span>İletişim Bilgileri</h4>
-                                <div class="widget-content">
-
-                                    <div class="g-map">
-                                        @Html.Raw(Model.Mekan.Harita)
-                                    </div>
-
-
-
-
-                                    <ul class="info-list list">
-                                        <li>
-                                            <a href="#">
-                                                <span class="icon-compass1"></span>
-                                                <p>
-                                                    @Model.Mekan.Adres, <br /> @Model.Mekan.SemtAdi/@Model.Mekan.SehirAdi
-                                                </p>
-                                            </a>
-                                        </li>
-
-                                        <li><a href="tel:@item"><span class="icon-call"></span>@item</a></li>
-
-
-
-
-                                        <li><a href="mailto:@eposta"><span class="icon-email"></span>@eposta</a></li>
-
-
-
-
-                                        <li><a href="http://@Model.Mekan.SiteLink" title="@Model.Mekan.MekanAdi" rel="external"><span class="icon-broken-link"></span>Web Sitesi</a></li>
-
-
-                                    </ul>
-
-                                    <ul class="social-share">
-
-
-                                        <li><a class="facebook" href="#" title="Facebook Hesabı" rel="external"><i class="fa fa-facebook"></i></a></li>
-
-
-
-                                        <li><a class="twitter" href="#" title="Twitter Hesabı" rel="external"><i class="fa fa-twitter"></i></a></li>
-
-
-                                        <li><a class="youtube" href="#" title="Youtube Hesabı" rel="external"><i class="fa fa-youtube"></i></a></li>
-
-
-
-                                        <li><a class="instagram" href="#" title="İnstagram Hesabı" rel="external"><i class="fa fa-instagram"></i></a></li>
-
-
-
-                                        <li><a class="pinterest" href="#" title="Resmi Pinterest Hesabı" rel="external"><i class="fa fa-pinterest"></i></a></li>
-
-
-                                    </ul>
-                                </div>
-                            </aside>
-
-
-
-                            <aside class="widget bt-menu-gallery-widget">
-                                <h4 class="widget-title"><span class="icon-fast-food"></span>Menü</h4>
-                                <div class="widget-content">
-                                    <div class="menu-list">
-
-                                        <div class="menu-item">
-                                            <a href="../Content/Upload/Galeri/Buyuk/xxxxx" class="lightbox-image" data-fancybox="project-gallery" title="xxxxxxx">
-                                                <img src="../Content/Upload/Galeri/Kucuk/" alt="xxxxxxxx" width="150" height="120">
-                                            </a>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </aside>
-
-
-
-                            <!--~./ end menu gallery widget ~-->
-                            <!--~~~~~ Start Online Reservation Widget ~~~~~-->
-
-                            <aside class="widget bt-online-reservation-widget">
-                                <h4 class="widget-title"><span class="icon-user-1"></span>Online Rezervasyon</h4>
-                                <div class="widget-content">
-
-                                    <p>
-                                        <select name="KisiSayisi" required class="custom-select">
-                                            <option value="">Kişi Sayısı</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5-7</option>
-                                            <option>7-10</option>
-                                            <option>10+</option>
-                                        </select>
-                                    </p>
-                                    <p>
-                                        <input type='text' required name='RezTarih' id='res_date' class="form-controllar" placeholder="Tarih/Saat">
-                                    </p>
-                                    <p class="form-submit">
-                                        <button class="btn btn-default">Kayıt</button>
-                                    </p>
-
-                                </div>
-                            </aside>
-
-
-
-
-
-
-
-                            <!--~./ end online eservation widget ~-->
-                            <!--~~~~~ Start Statistic Widget ~~~~~-->
-                            <aside class="widget bt-statistic-widget">
-                                <h4 class="widget-title"><span class="icon-presentation2"></span>Statistic</h4>
-                                <div class="widget-content">
-                                    <div class="statistic-list">
-                                        <div class="statistic-item">
-                                            <span class="icon-compass1"></span>Gösterim
-                                        </div>
-                                        <div class="statistic-item">
-                                            <span class="icon-review-1"></span>2 Yorum
-                                        </div>
-                                        <div class="statistic-item">
-                                            <span class="icon-bookmark1"></span>Favori
-                                        </div>
-                                        <div class="statistic-item">
-                                            <span class="icon-share1"></span>65 Paylaşım
-                                        </div>
-                                    </div>
-                                </div>
-                            </aside>
-
-
-
-                            <!--~./ end statistic widget ~-->
-                            <!--~~~~~ Start Browse Nearby Widget ~~~~~-->
-                            <aside class="widget bt-browse-nearby-widget">
-                                <h4 class="widget-title"><span class="icon-placeholder1"></span>Kategoriler</h4>
-                                <div class="widget-content">
-                                    <ul class="list">
-
-                                        <li><a class="restaurant" href="/mekanlar/xxxx" title="xxxxxxxx"><span class="@item.Icon"></span>xxxxx</a></li>
-
-                                    </ul>
-                                </div>
-                            </aside>
-
-                            <!--~./ end extra info widget ~-->
-                            <!--~~~~~ Start About Us Widget ~~~~~-->
-
-                        </div>
-                    </div><!--~./ end sidebar ~-->
                 </div>
             </div>
-        </div><!--~./ end main wrapper ~-->
+        </div>
     </div>
 
 
@@ -762,38 +681,55 @@
 
     <script>
 
+        //var link = getParameterByName("kategori", location.href);
 
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, '\\$&');
-            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
-
-
-        var app = angular.module("myapp", []);
-
-        app.controller("mekandetay", function ($scope, $http) {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id');
-
-       
-       
-            $scope.test = "Barış";
-
-            $http.get("http://localhost:44331/api/mekan/"+ id +"").then(function (result) {
-                console.log(result);
-                $scope.mekan = result.data;
-            })
+        const urlParams = new URLSearchParams(window.location.search);
+        const kategori = urlParams.get('kategori');
 
 
 
+                function getParameterByName(name, url) {
+                    if (!url) url = window.location.href;
+                    name = name.replace(/[\[\]]/g, '\\$&');
+                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                        results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                }
 
 
-        })
+                var app = angular.module("myapp", []);
+
+                app.controller("mekanlar", function ($scope, $http) {
+
+                    $http.get(apiURL + "kategori?id=" + kategori).then(function (result) {
+                        //kategori
+                        console.log(result);
+                        alert(result.KategoriAdi);
+                    })
+
+
+                })
+
+                app.controller("mekandetay", function ($scope, $http) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const id = urlParams.get('id');
+
+
+
+                    $scope.test = "Barış";
+
+                    $http.get("http://localhost:44331/api/mekan/" + id + "").then(function (result) {
+                        console.log(result);
+                        $scope.mekan = result.data;
+                    })
+
+
+
+
+
+                })
 
     </script>
 
@@ -825,91 +761,91 @@
     <script>
 
 
-        //$(".review-box li:eq(0) .review-rating").attr("data-rate-value", "5");
-        //$(".review-box li:eq(1) .review-rating").attr("data-rate-value", "5");
-        //$(".review-box li:eq(2) .review-rating").attr("data-rate-value", "5");
-        //$(".review-box li:eq(3) .review-rating").attr("data-rate-value", "5");
-        //$(".review-box li:eq(4) .review-rating").attr("data-rate-value", "5");
+                //$(".review-box li:eq(0) .review-rating").attr("data-rate-value", "5");
+                //$(".review-box li:eq(1) .review-rating").attr("data-rate-value", "5");
+                //$(".review-box li:eq(2) .review-rating").attr("data-rate-value", "5");
+                //$(".review-box li:eq(3) .review-rating").attr("data-rate-value", "5");
+                //$(".review-box li:eq(4) .review-rating").attr("data-rate-value", "5");
 
 
 
-        $("[data-fancybox]").fancybox({
-            thumbs: false,
-            hash: false,
-            loop: true,
-            keyboard: true,
-            toolbar: false,
-            animationEffect: false,
-            arrows: true,
-            clickContent: false
-        });
-
-        function rezsonuc(data) {
-            if (data == -1) {
-                swal({
-                    html: true,
-                    title: "Eksik Alanlar Var!",
-                    text: "Formda veya üyelik bilgilerinizde eksik alanlar mevcut olabilir. Lütfen kontrol edip yeniden deneyiniz. Üyelik bilgilerinizi kontrol etmek için <a href='/profilim' target='_blank'><b>tıklayınız.</b></a>",
-                    type: "error",
-                    confirmButtonClass: "btn-danger"
-                });
-            }
-            else if (data == -2) {
-                $("#reg_form_model").modal();//giris yap
-            }
-
-            else if (data == -5) {
-                swal({
-                    title: "Kayıt Mevcut!",
-                    text: "Rezervasyon Kaydınız zaten mevcut, ilginiz için teşekkür ederiz.",
-                    type: "error",
-                    confirmButtonClass: "btn-danger"
-                });
-            }
-            else if (data == 0) {
-                swal({
-                    title: "Rezervasyon Devre Dışı!",
-                    text: "Şuanda bu etkinlik için rezervasyon devre dışı olduğundan rezervasyon işleminiz gerçekleştirilemedi!",
-                    type: "error",
-                    confirmButtonClass: "btn-danger"
-                });
-            }
-            else if (data == 1) {
-                swal({
-                    title: "Başarılı!",
-                    text: "Rezervasyon Kaydınız başarıyla tamamlandı! Rezervasyonunuzun mekan tarafından onaylanıp onaylanmadığını rezervasyonlarım bölümünden görebilirsiniz.",
-                    confirmButtonClass: "btn-success",
-                    imageUrl: '/Content/Wscp/img/smile.png'
+                $("[data-fancybox]").fancybox({
+                    thumbs: false,
+                    hash: false,
+                    loop: true,
+                    keyboard: true,
+                    toolbar: false,
+                    animationEffect: false,
+                    arrows: true,
+                    clickContent: false
                 });
 
-                $("#reservation_form")[0].reset();
-            }
-            else {
-                swal({
-                    title: "Hata!",
-                    text: "İşlem esnasında beklenmeyen bir hata, lütfen daha sonra tekrar deneyin.",
-                    type: "error",
-                    confirmButtonClass: "btn-danger"
-                });
-            }
-        }
+                function rezsonuc(data) {
+                    if (data == -1) {
+                        swal({
+                            html: true,
+                            title: "Eksik Alanlar Var!",
+                            text: "Formda veya üyelik bilgilerinizde eksik alanlar mevcut olabilir. Lütfen kontrol edip yeniden deneyiniz. Üyelik bilgilerinizi kontrol etmek için <a href='/profilim' target='_blank'><b>tıklayınız.</b></a>",
+                            type: "error",
+                            confirmButtonClass: "btn-danger"
+                        });
+                    }
+                    else if (data == -2) {
+                        $("#reg_form_model").modal();//giris yap
+                    }
+
+                    else if (data == -5) {
+                        swal({
+                            title: "Kayıt Mevcut!",
+                            text: "Rezervasyon Kaydınız zaten mevcut, ilginiz için teşekkür ederiz.",
+                            type: "error",
+                            confirmButtonClass: "btn-danger"
+                        });
+                    }
+                    else if (data == 0) {
+                        swal({
+                            title: "Rezervasyon Devre Dışı!",
+                            text: "Şuanda bu etkinlik için rezervasyon devre dışı olduğundan rezervasyon işleminiz gerçekleştirilemedi!",
+                            type: "error",
+                            confirmButtonClass: "btn-danger"
+                        });
+                    }
+                    else if (data == 1) {
+                        swal({
+                            title: "Başarılı!",
+                            text: "Rezervasyon Kaydınız başarıyla tamamlandı! Rezervasyonunuzun mekan tarafından onaylanıp onaylanmadığını rezervasyonlarım bölümünden görebilirsiniz.",
+                            confirmButtonClass: "btn-success",
+                            imageUrl: '/Content/Wscp/img/smile.png'
+                        });
+
+                        $("#reservation_form")[0].reset();
+                    }
+                    else {
+                        swal({
+                            title: "Hata!",
+                            text: "İşlem esnasında beklenmeyen bir hata, lütfen daha sonra tekrar deneyin.",
+                            type: "error",
+                            confirmButtonClass: "btn-danger"
+                        });
+                    }
+                }
 
 
 
 
-        function YorumYap() {
+                function YorumYap() {
 
-            var model = {
-                Konum: $(".review-box li:eq(0) .review-rating").attr("data-rate-value"),
-                Kalite: $(".review-box li:eq(1) .review-rating").attr("data-rate-value"),
-                Hiz: $(".review-box li:eq(2) .review-rating").attr("data-rate-value"),
-                Servis: $(".review-box li:eq(3) .review-rating").attr("data-rate-value"),
-                Fiyat: $(".review-box li:eq(4) .review-rating").attr("data-rate-value"),
-                YorumBaslik: $("#review_form input[name=title]").val(),
-                Yorum: $("#review_form textarea[name=message]").val()
-            }
+                    var model = {
+                        Konum: $(".review-box li:eq(0) .review-rating").attr("data-rate-value"),
+                        Kalite: $(".review-box li:eq(1) .review-rating").attr("data-rate-value"),
+                        Hiz: $(".review-box li:eq(2) .review-rating").attr("data-rate-value"),
+                        Servis: $(".review-box li:eq(3) .review-rating").attr("data-rate-value"),
+                        Fiyat: $(".review-box li:eq(4) .review-rating").attr("data-rate-value"),
+                        YorumBaslik: $("#review_form input[name=title]").val(),
+                        Yorum: $("#review_form textarea[name=message]").val()
+                    }
 
-        }
+                }
 
 
     </script>

@@ -13,18 +13,21 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <!--<link rel="stylesheet" type="text/css" href="css/index.css">-->
-    <title>NereyeGidilmeli.Mobile</title>
+    <title>Nereye Gidilmeli Mobil Uygulaması</title>
 
 
 
-    <link rel="stylesheet" href="https://nereyegidilmeli.com/Content/assets/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="https://nereyegidilmeli.com/Content/assets/css/icomoon.css" />
+    <link rel="stylesheet" href="http://nereyegidilmeli.com/Content/assets/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="http://nereyegidilmeli.com/Content/assets/css/icomoon.css" />
 
-    <link rel="shortcut icon" href="https://nereyegidilmeli.com/Content/assets/images/favicon.png" />
-    <link rel="stylesheet" href="https://nereyegidilmeli.com/Content/assets/css/plugins.css" />
-        <link rel="stylesheet" href="https://nereyegidilmeli.com/Content/style.css" />
+    <link rel="shortcut icon" href="http://nereyegidilmeli.com/Content/assets/images/favicon.png" />
+    <link rel="stylesheet" href="http://nereyegidilmeli.com/Content/assets/css/plugins.css" />
+    <link rel="stylesheet" href="http://nereyegidilmeli.com/Content/style.css" />
 
-    <script src="https://nereyegidilmeli.com/Content/assets/js/modernizr.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/modernizr.min.js"></script>
+
+
+
 
 
 
@@ -35,6 +38,7 @@
 
 
 
+    <!--<div ng-include="/inc/header.html"></div>-->
 
 
     <header class="site-header header-style-one">
@@ -54,35 +58,16 @@
 
                                         <li class="dropdown-trigger mega-menu">
                                             <a href="/mekanlar.html?url=mekan-1" title="Mekanlar">Mekanlar <span class="menu-label new"> keşfet</span></a>
-                                            <div class="mega-menu-content carousel-nav-dots owl-carousel">
-
-
-                                                <a ng-repeat="kat in mekankat" class="cat-item" href="/mekanlar/eglence-alanlari" title="{{kat.KategoriAdi}}">
-                                                    <div class="cat-thumb">
-                                                        <img src="https://nereyegidilmeli.com/Content/Upload/Kategoriler/{{kat.Resim}}" alt="{{kat.KategoriAdi}}">
-                                                    </div>
-                                                    <span class="cat-name">{{kat.KategoriAdi}}</span>
-                                                </a>
+                                            <div id="menukat1" class="mega-menu-content carousel-nav-dots owl-carousel">
 
 
 
                                             </div><!--/.mega-menu-content-->
                                         </li>
                                         <li class="dropdown-trigger mega-menu">
-                                            <a href="/etkinlikler" title="Etkinlikler">Etkinlikler <span class="menu-label new">eğlen</span></a>
-                                            <div class="mega-menu-content carousel-nav-dots owl-carousel">
-                                                <a class="cat-item" href="/etkinlikler/konserler" title="Konserler">
-                                                    <div class="cat-thumb">
-                                                        <img src="https://nereyegidilmeli.com/Content/Upload/Kategoriler/eglence-1.jpg" alt="cat">
-                                                    </div>
-                                                    <span class="cat-name">Konserler</span>
-                                                </a>
-                                                <a class="cat-item" href="/etkinlikler/sahne-gosterileri" title="Sahne G&#246;sterileri">
-                                                    <div class="cat-thumb">
-                                                        <img src="/Content/Upload/Kategoriler/sahne-gosterileri.jpg" alt="cat">
-                                                    </div>
-                                                    <span class="cat-name">Sahne G&#246;sterileri</span>
-                                                </a>
+                                            <a href="etkinlikler.html" title="Etkinlikler">Etkinlikler <span class="menu-label new">eğlen</span></a>
+                                            <div id="menukat2" class="mega-menu-content carousel-nav-dots owl-carousel">
+                                               
                                             </div><!--/.mega-menu-content-->
                                         </li>
 
@@ -145,8 +130,6 @@
 
 
 
-    <div id="sticky-header"></div><!--~./End site header ~-->
-
     <div class="site-content">
 
 
@@ -158,16 +141,19 @@
                         <div class="frontpage-banner-content text-center text-white">
                             <h1 class="banner-title">İyi seçim kaliteli yaşam.</h1>
                             <div class="features-cat-area">
-                                <div class="features-cat-carousel owl-carousel">
+                                <div id="headkats" class="features-cat-carousel owl-carousel">
 
-                                    <a href="/mekanlar/" class="cat-item" title="kategori adı">
+                                    <!--<a ng-repeat="k in mekankats" href="#" class="cat-item" title="kategori adı">
                                         <div class="icon">
-                                            <span class="fa fa-home"></span>
+                                            <span class="fa {{k.Icon}}"></span>
                                         </div>
                                         <div class="cat-name">
-                                            kategori adı
+                                          {{k.KategoriAdi}}
                                         </div>
-                                    </a>
+                                    </a>-->
+
+
+
 
                                 </div>
                             </div>
@@ -180,16 +166,23 @@
                                         <option value="">Konum </option>
                                         <option value="sehiradi">sehir</option>
                                     </select>
+
                                     <select name="semt" class="hero-form-input custom-select location">
                                         <option value="">Konum </option>
 
                                     </select>
-                                    <select name="kategori" class="hero-form-input custom-select category">
-                                        <option value="">Kategori</option>
 
-                                        <option value="kategoriurl">kategori</option>
+
+                                    <select name="kategori" class="hero-form-input custom-select category">
+                                        <option>Kategori</option>
+                                        <!--<option ng-repeat="k in mekankats">
+                                            {{k.KategoriAdi}}
+                                        </option>-->
                                     </select>
+
+
                                     <div class="hero-form-input submitbtn">
+                                        bm
                                         <button class="btn btn-default" type="submit">Ara</button>
                                     </div>
                                 </div>
@@ -207,7 +200,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="section-header text-center">
-                            <h2 class="section-title">{{adi}} Öne Çıkan <span>Mekanlar</span></h2>
+                            <h2 class="section-title"> Öne Çıkan <span>Mekanlar</span></h2>
                             <p>#Keşfet</p>
                             <div class="divider">
                                 <img src="https://nereyegidilmeli.com/Content/assets/images/icon/divider.png" alt="icon">
@@ -218,9 +211,16 @@
                 <div class="row">
 
 
+                    <!--<ul>
+                        <li ng-repeat="k in mekankats">{{k.KategoriAdi}}</li>
+                    </ul>-->
+
                     <div class="col-lg-4" ng-repeat="mekan in mekanlar">
 
+
+
                         <div class="popular-todo-item">
+
                             <div class="todo-thumbnail-area">
                                 <a href="mekanlar.html?id={{mekan.ID}}" title="{{mekan.MekanAdi}}">
                                     <figure class="item-thumb">
@@ -229,7 +229,7 @@
                                 </a>
                                 <div class="todo-overlay-info">
                                     <div class="todo-meta-bottom">
-                                        <a href="javascript:MekanKaydet({{mekan.ID}})" data-id="#id" title="MekanAdi" class="save active">
+                                        <a href="javascript:MekanKaydet({{mekan.ID}})" data-id="#id" title="MekanAdi" class="save <!--active-->">
                                             <i class="fa fa-heart"></i>
                                             favorilerime ekle
                                         </a>
@@ -245,7 +245,6 @@
                                 <div class="todo-meta">
                                     <div class="todo-location">
                                         <span class="icon-location"></span>
-
                                         {{mekan.Semt}}, {{mekan.Sehir}}
                                     </div>
 
@@ -255,9 +254,7 @@
                                     </div>
 
                                 </div>
-                                <div class="todo-summary">
-                                    {{mekan.Adres}}
-                                </div>
+                                <div class="todo-summary">{{mekan.Aciklama}}</div>
                             </div>
                             <div class="todo-footer">
                                 <a title="{{mekan.KategoriAdi}}" href="mekanlar.html?kat={{mekan.KatID}}" class="todo-cat todo-cat-restaurant">
@@ -297,8 +294,8 @@
                     <div class="col-12">
                         <div class="filter-tab-area style-two">
                             <ul class="nav nav-tabs" role="tablist">
-                                <li>
-                                    <a title="@item.Kategori.KategoriAdi" class="active" data-toggle="tab" href="#todo_@item.Kategori.Url" role="tab">kategori</a>
+                                <li ng-repeat="k in etkinlikler">
+                                    <a data-toggle="tab" href="#todo_{{k.Kategori.Url}}" role="tab">{{etkinlikler.indexOf(k)}} {{k.Kategori.KategoriAdi}}</a>
                                 </li>
 
                             </ul>
@@ -306,19 +303,22 @@
                     </div>
                 </div>
 
+
                 <div class="tab-content filter-tab-content">
 
 
-                    <div class="tab-pane fade show active" id="todo_katurl" role="tabpanel">
+                    <div ng-repeat="etk in etkinlikler" class="tab-pane fade" id="todo_{{etk.Kategori.Url}}" role="tabpanel">
                         <div class="todo-items-carousel2 owl-carousel carousel-nav-dots">
 
-                            <div class="popular-todo-item">
+
+
+                            <div class="popular-todo-item" ng-repeat="e in etk.Etkinlikler">
                                 <div class="todo-thumbnail-area">
                                     <figure class="item-thumb">
                                         <img src="https://nereyegidilmeli.com/Content/Upload/Etkinlikler/" alt="Baslik">
                                     </figure>
                                     <div class="todo-overlay-info">
-                                        <div class="todo-type rated">dd.mm.yyyy</div>
+                                        <div class="todo-type rated">{{e.Tarih}}</div>
                                         <div class="todo-meta-bottom">
                                             <a href="javascript:EtkinlikKaydet(ID)" data-id="id" title="Baslik" class="save active">
                                                 <i class="fa fa-heart"></i>
@@ -332,17 +332,17 @@
                                     </div>
                                 </div>
                                 <div class="todo-content">
-                                    <h3 class="title"><a href="#" title="baslik">Baslik</a></h3>
+                                    <h3 class="title"><a href="#" title="baslik">{{e.Baslik}}</a></h3>
                                     <div class="todo-meta">
                                         <div class="todo-location">
                                             <span class="icon-location"></span>
 
-                                            <a href="#" title="mekan">mekan - MekanAdresi</a>
+                                            <a href="kategori.html?id={{e.ID}}" title="mekan">{{e.Baslik}}</a>
                                         </div>
 
                                         <div class="todo-number">
                                             <span class="icon-phone"></span>
-                                            00000000000
+                                            {{e.Baslik}}
                                         </div>
 
 
@@ -350,19 +350,25 @@
 
 
                                     <div class="todo-summary">
-                                        ccccccccccccccccccccc
+                                        {{e.Baslik}}
                                     </div>
                                 </div>
                                 <div class="todo-footer">
-                                    <a href="#" title="kategori" class="todo-cat todo-cat-restaurant">
+                                    <a href="kategori.html?id={{e.ID}}" title="kategori" class="todo-cat todo-cat-restaurant">
                                         <span class="icon-fast-food"></span>
-                                        kategori
+                                        {{e.Baslik}}
                                     </a>
                                 </div>
                             </div>
 
+
+
                         </div>
                     </div>
+
+
+
+
 
 
 
@@ -386,12 +392,12 @@
                 </div>
                 <div class="row">
 
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-4 col-md-6" ng-repeat="yazi in blogyazilari">
                         <article class="post hentry">
                             <div class="entry-thumb">
                                 <figure class="thumb-wrap">
                                     <a href="#" title="Baslik">
-                                        <img src="../Content/Upload/Blog/" alt="Baslik">
+                                        <img src="http://nereyegidilmeli.com/Content/Upload/Blog/{{yazi.KapakGorsel}}" alt="Baslik">
 
                                     </a>
                                 </figure>
@@ -400,12 +406,12 @@
                             <div class="content-entry-wrap">
                                 <div class="entry-meta-content">
                                     <div class="entry-date">
-                                        <span>dd.mm.yyyy</span>
+                                        <span>{{yazi.Tarih}}</span>
                                     </div>
                                 </div>
                                 <div class="entry-content">
                                     <h3 class="entry-title">
-                                        <a href="#" title="Baslik">Baslik</a>
+                                        <a href="blog.html?id={{yazi.ID}}" title="Baslik">{{yazi.Baslik}}</a>
                                     </h3>
                                 </div>
                             </div>
@@ -750,7 +756,26 @@
     </script>
 
 
+    <script id="menukattemplate" type="text/template">
+        <a class="cat-item" href="mekanlar.html?kategori={{katid}}">
+            <div class="cat-thumb">
+                <img src="https://nereyegidilmeli.com/Content/Upload/Kategoriler/{{kapakfoto}}" alt="">
+            </div>
+            <span class="cat-name">{{katadi}}</span>
+        </a>
+    </script>
 
+
+    <script id="headerkattemplate" type="text/template">
+        <a href="mekanlar.html?katid={{katid}}" class="cat-item">
+            <div class="icon">
+                <span class="fa {{icon}}"></span>
+            </div>
+            <div class="cat-name">
+                {{kategoriAdi}}
+            </div>
+        </a>
+    </script>
 
 
 
@@ -760,56 +785,51 @@
 
 
 
-
-
-    <script src="https://nereyegidilmeli.com/Content/assets/js/script.js"></script>
-    <script src="https://nereyegidilmeli.com/Content/assets/js/jquery.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
 
+    <script src="http://nereyegidilmeli.com/Content/assets/js/script.js"></script>
 
 
-    <script src="https://nereyegidilmeli.com/Content/assets/js/bootstrap.min.js"></script>
-    <script src="https://nereyegidilmeli.com/Content/assets/js/owl.carousel.min.js"></script>
-    <script src="https://nereyegidilmeli.com/Content/assets/js/ResizeSensor.min.js"></script>
-    <script src="https://nereyegidilmeli.com/Content/assets/js/theia-sticky-sidebar.min.js"></script>
-    <script src="https://nereyegidilmeli.com/Content/assets/js/rangeslider.min.js"></script>
-    <script src="https://nereyegidilmeli.com/Content/assets/js/wan-spinner.js"></script>
-    <script src="https://nereyegidilmeli.com/Content/assets/js/rater.min.js"></script>
-    <script src="https://nereyegidilmeli.com/Content/assets/js/jquery-steps.min.js"></script>
+    <!--<script src="cordova/Scripts/angular-route.min.js"></script>-->
 
-    <script src="https://nereyegidilmeli.com/Content/assets/js/jquery.validate.min.js"></script>
-    <script src="https://nereyegidilmeli.com/Content/assets/js/plugins.js"></script>
-    <script src="https://nereyegidilmeli.com/Content/assets/js/main.js"></script>
-
-
-
-    <!--<script src="../Scripts/angular.js"></script>-->
-    <script src="cordova/Scripts/angular-route.min.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
 
-
-    <script>
-        var app = angular.module("myapp", []);
-
-        app.controller("mycontroller", function ($scope, $http) {
-
-            $scope.adi = "Barış SARSU";
-            //$http.get("https://localhost:44385/api/mekan").then(function (result) {
-
-            //    $scope.mekanlar = result.data;
-            //})
+    <script type="text/javascript" src="scripts/header.js"></script>
+    <!--<script type="text/javascript">
+    $(document).ready(function () {
+                                                        $("#headerdiv").load("inc/header.html");
 
 
-            //$http.get("https://localhost:44385/api/kategori/getlist?tip=1").then(function (result) {
-            //    console.log(result);
-            //    $scope.mekankat = result.data;
-            //})
+        $.ajax({
 
-
-
+        url:"inc/header.html",
+            type:"get",
+            dataType:"html",
+            success:function (data) {
+                console.log(data);
+    }
         })
 
-    </script>
+    })
+        </script>-->
+
+    <script src="http://nereyegidilmeli.com/Content/assets/js/bootstrap.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/owl.carousel.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/ResizeSensor.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/theia-sticky-sidebar.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/rangeslider.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/wan-spinner.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/rater.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/jquery-steps.min.js"></script>
+
+    <script src="http://nereyegidilmeli.com/Content/assets/js/jquery.validate.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/plugins.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/main.js"></script>
+
+
+
+
 
 
     <script type="text/javascript">
@@ -1076,8 +1096,6 @@
         }
 
     </script>
-
-
 
 
 
