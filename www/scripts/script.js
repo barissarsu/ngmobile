@@ -1,4 +1,32 @@
 ﻿
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function setHeaders(params) {
+    const accessToken = this.localStorageService.get('token');
+    const reqData = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        },
+    };
+    if (params) {
+        let reqParams = {};
+        Object.keys(params).map(k => {
+            reqParams[k] = params[k];
+        });
+        reqData['params'] = reqParams;
+    }
+    return reqData;
+}
+
+
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

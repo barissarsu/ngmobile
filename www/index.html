@@ -67,7 +67,7 @@
                                         <li class="dropdown-trigger mega-menu">
                                             <a href="etkinlikler.html" title="Etkinlikler">Etkinlikler <span class="menu-label new">eğlen</span></a>
                                             <div id="menukat2" class="mega-menu-content carousel-nav-dots owl-carousel">
-                                               
+
                                             </div><!--/.mega-menu-content-->
                                         </li>
 
@@ -222,7 +222,7 @@
                         <div class="popular-todo-item">
 
                             <div class="todo-thumbnail-area">
-                                <a href="mekanlar.html?id={{mekan.ID}}" title="{{mekan.MekanAdi}}">
+                                <a href="mekandetay.html?id={{mekan.ID}}" title="{{mekan.MekanAdi}}">
                                     <figure class="item-thumb">
                                         <img src="https://nereyegidilmeli.com/Content/Upload/Mekanlar/{{mekan.KapakGorsel}}" alt="mekan">
                                     </figure>
@@ -241,7 +241,7 @@
                                 </div>
                             </div>
                             <div class="todo-content">
-                                <h3 class="title"><a href="mekanlar.html?id={{mekan.ID}}" title="{{mekan.MekanAdi}}">{{mekan.MekanAdi}}</a></h3>
+                                <h3 class="title"><a href="mekandetay.html?id={{mekan.ID}}" title="{{mekan.MekanAdi}}">{{mekan.MekanAdi}}</a></h3>
                                 <div class="todo-meta">
                                     <div class="todo-location">
                                         <span class="icon-location"></span>
@@ -254,10 +254,10 @@
                                     </div>
 
                                 </div>
-                                <div class="todo-summary">{{mekan.Aciklama}}</div>
+                                <div class="todo-summary" ng-bind-html="mekan.Aciklama"></div>
                             </div>
                             <div class="todo-footer">
-                                <a title="{{mekan.KategoriAdi}}" href="mekanlar.html?kat={{mekan.KatID}}" class="todo-cat todo-cat-restaurant">
+                                <a title="{{mekan.KategoriAdi}}" href="mekanlar.html?kategori={{mekan.KatID}}" class="todo-cat todo-cat-restaurant">
                                     <span class="icon-fast-food"></span>
                                     {{mekan.KategoriAdi}}
                                 </a>
@@ -786,7 +786,8 @@
 
 
     <script src="http://nereyegidilmeli.com/Content/assets/js/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
 
     <script src="http://nereyegidilmeli.com/Content/assets/js/script.js"></script>
 

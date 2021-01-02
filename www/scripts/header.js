@@ -1,6 +1,6 @@
-//var apiURL = "https://localhost:44385/api/";
+var apiURL = "https://localhost:44385/api/";
 
-var apiURL = "https://testapi.nereyegidilmeli.com/api/";
+//var apiURL = "https://testapi.nereyegidilmeli.com/api/";
 
 
 

@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html ng-app="myapp" ng-controller="mekanlar">
+<html>
 <head>
     <!--
         Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
@@ -16,48 +16,22 @@
     <title>Nereye Gidilmeli Mobil Uygulaması</title>
 
 
+    <link rel="stylesheet" href="http://nereyegidilmeli.com/Content/assets/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="http://nereyegidilmeli.com/Content/assets/css/icomoon.css" />
 
-    <link rel="stylesheet" href="https://nereyegidilmeli.com/Content/assets/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="https://nereyegidilmeli.com/Content/assets/css/icomoon.css" />
+    <link rel="shortcut icon" href="http://nereyegidilmeli.com/Content/assets/images/favicon.png" />
+    <link rel="stylesheet" href="http://nereyegidilmeli.com/Content/assets/css/plugins.css" />
+    <link rel="stylesheet" href="http://nereyegidilmeli.com/Content/style.css" />
 
-    <link rel="shortcut icon" href="https://nereyegidilmeli.com/Content/assets/images/favicon.png" />
-    <link rel="stylesheet" href="https://nereyegidilmeli.com/Content/assets/css/plugins.css" />
-    <link rel="stylesheet" href="https://nereyegidilmeli.com/Content/style.css" />
-
-    <script src="https://nereyegidilmeli.com/Content/assets/js/modernizr.min.js"></script>
-    <script src="https://nereyegidilmeli.com/Content/assets/js/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-
-
-
-    <script src="scripts/index.js"></script>
-
-
-    <script id="menukattemplate" type="text/template">
-        <a class="cat-item" href="mekanlar.html?kategori={{katid}}">
-            <div class="cat-thumb">
-                <img src="https://nereyegidilmeli.com/Content/Upload/Kategoriler/{{kapakfoto}}" alt="">
-            </div>
-            <span class="cat-name">{{katadi}}</span>
-        </a>
-    </script>
-
-
-    <script id="headerkattemplate" type="text/template">
-        <a href="mekanlar.html?katid={{katid}}" class="cat-item">
-            <div class="icon">
-                <span class="fa {{icon}}"></span>
-            </div>
-            <div class="cat-name">
-                {{kategoriAdi}}
-            </div>
-        </a>
-    </script>
-
+    <script src="http://nereyegidilmeli.com/Content/assets/js/modernizr.min.js"></script>
 
 </head>
-<body ng-app="myapp" ng-controller="mycontroller">
+<body ng-app="myapp" ng-controller="mekancontroller">
 
+
+
+
+    <div ng-include="/header.html"></div>
 
     <header class="site-header header-style-one">
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,24 +52,14 @@
                                             <a href="/mekanlar.html?url=mekan-1" title="Mekanlar">Mekanlar <span class="menu-label new"> keşfet</span></a>
                                             <div id="menukat1" class="mega-menu-content carousel-nav-dots owl-carousel">
 
-                                                <!--<a class="cat-item" href="#" ng-repeat="y in mekankats">
-                                                    <div class="cat-thumb">
-                                                        <img src="https://nereyegidilmeli.com/Content/Upload/Kategoriler/" alt="">
-                                                    </div>
-                                                    <span class="cat-name" ng-bind="y.KategoriAdi">xxx</span>
-                                                </a>-->
+
 
                                             </div><!--/.mega-menu-content-->
                                         </li>
                                         <li class="dropdown-trigger mega-menu">
-                                            <a href="/etkinlikler" title="Etkinlikler">Etkinlikler <span class="menu-label new">eğlen</span></a>
+                                            <a href="etkinlikler.html" title="Etkinlikler">Etkinlikler <span class="menu-label new">eğlen</span></a>
                                             <div id="menukat2" class="mega-menu-content carousel-nav-dots owl-carousel">
-                                                <!--<a ng-repeat="etkkat in etkinlikkats" class="cat-item" href="#" title="Konserler">
-                                                    <div class="cat-thumb">
-                                                        <img src="https://nereyegidilmeli.com/Content/Upload/Kategoriler/eglence-1.jpg" alt="cat">
-                                                    </div>
-                                                    <span class="cat-name">{{etkkat.KategoriAdi}}</span>
-                                                </a>-->
+
                                             </div><!--/.mega-menu-content-->
                                         </li>
 
@@ -158,10 +122,6 @@
 
 
 
-    <div id="sticky-header"></div><!--~./End site header ~-->
-
-
-
     <div class="page-title-area text-white bg-image bg-overlay" style="background-image:url();">
         <div class="container">
             <div class="row">
@@ -175,23 +135,22 @@
                                 <select name="sehir" class="hero-form-input custom-select location">
                                     <option value="">Konum </option>
 
-                                    <option value="">@sehir.SehirAdi</option>
-            
-                                    <option value="">@sehir.SehirAdi</option>
+                                    <option value="{{sehir.id}}" ng-repeat="sehir in Sehirler">{{sehir.SehirAdi}}</option>
+
+
 
                                 </select>
                                 <select name="semt" class="hero-form-input custom-select location">
                                     <option value="">Konum </option>
-                                   
-                                    <option value="@UrlBusinnes.Replace(semt.town_name)">@semt.town_name</option>
-                              
+
+                                    <option value="{{semt.id}}" ng-repeat="semt in Semtler">{{semt.town_name}}</option>
+
                                 </select>
                                 <select name="kategori" class="hero-form-input custom-select category">
                                     <option value="">Kategori</option>
 
-                          
-                                    <option value="">kategori</option>
-                       
+
+
                                 </select>
                                 <div class="hero-form-input submitbtn">
                                     <button class="btn btn-default" type="submit">Ara</button>
@@ -200,16 +159,19 @@
                         </form>
                         <div class="breadcrumb-content-area">
                             <div class="page-header-caption">
-                                <h1>@Model.AktifKategoriAdi</h1>
+                                <h1>{{KategoriAdi}}</h1>
                             </div>
                             <div class="breadcrumb-area">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="@Url.Action(" Index")">Anasayfa</a></li>
-                                    <li aria-current="page" class="breadcrumb-item active">@Model.AktifKategoriAdi</li>
+                                    <li class="breadcrumb-item"><a href="index.html">Anasayfa</a></li>
+                                    <li aria-current="page" class="breadcrumb-item active">{{KategoriAdi}}</li>
                                 </ol>
                             </div>
                         </div>
-                        <h1>@ViewBag.SayfaBaslik</h1>
+                        <h1>{{KategoriAdi}}</h1>
+
+                        <!--<ng-include src="'Test.html'" onload="expression" autoscroll="expression"></ng-include>-->
+                        <!--<div ng-include="'Test.html'"></div>-->
                     </div>
                 </div>
             </div>
@@ -236,9 +198,9 @@
                                                     <span>Mekanlar</span>
                                                     <select name="kategori" class="option-form-input custom-select category">
                                                         <option value="">Kategori</option>
-                                   
-                                                        <option value="@kat.Url">@kat.KategoriAdi</option>
-                                            
+
+                                                        <!--<option value="@kat.Url">@kat.KategoriAdi</option>-->
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -260,7 +222,7 @@
                                                 </div>
                                             </div>
 
-                                  
+
                                             <div class="col-lg-12">
                                                 <div class="sort-by-tags">
                                                     <div class="tags-by">İlgili Konular</div>
@@ -268,9 +230,9 @@
 
 
 
-                                                        <div class="form-group">
-                                                            <input name="tag" id="listtag@(item.ID)" data-value="@item.Url" type="checkbox">
-                                                            <label for="listtag@(item.ID)" class="listtag">@item.Kelime</label>
+                                                        <div class="form-group" ng-repeat="etiket in Etiketler">
+                                                            <input name="tag" id="listtag{{etiket.ID}}" data-value="{{etiket.Url}}" type="checkbox">
+                                                            <label for="listtag{{etiket.ID}}" class="listtag">{{etiket.Kelime}}</label>
                                                         </div>
 
 
@@ -280,7 +242,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                
+
 
                                         </div>
                                     </div>
@@ -295,100 +257,89 @@
                                     <div class="row">
                                         <div class="col-lg-8">
 
-                    
-                                            <div class="popular-todo-item todo-item-list">
+
+                                            <div class="popular-todo-item" ng-repeat="mekan in Mekanlar">
+
                                                 <div class="todo-thumbnail-area">
-                                                    <a href="" title="@mekan.MekanAdi">
+                                                    <a href="mekandetay.html?id={{mekan.ID}}" title="{{mekan.MekanAdi}}">
                                                         <figure class="item-thumb">
-                                               
-                                                            <img src="" alt="@mekan.MekanAdi">
-
-                                                        
-                                                            <img src="" alt="@mekan.MekanAdi">
-                                                       
-
+                                                            <img src="https://nereyegidilmeli.com/Content/Upload/Mekanlar/{{mekan.KapakGorsel}}" alt="mekan">
                                                         </figure>
                                                     </a>
                                                     <div class="todo-overlay-info">
-
                                                         <div class="todo-meta-bottom">
-                                                            <a href="javascript:MekanKaydet(@mekan.ID)" data-id="@mekan.ID" title="@mekan.MekanAdi" class="save @(mekan.FavlistesindeMi ? " active":"")">
+                                                            <a href="javascript:MekanKaydet({{mekan.ID}})" data-id="#id" title="MekanAdi" class="save <!--active-->">
                                                                 <i class="fa fa-heart"></i>
-                                                              favorilerime ekle
+                                                                favorilerime ekle
                                                             </a>
-                                                            <a href="#" class="photo">
+                                                            <div class="photo">
                                                                 <i class="fa fa-image"></i>
-                                                                @mekan.FotoSayisi görsel
-                                                            </a>
+                                                                5 fotoğraf
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="content-entry-wrap">
-                                                    <div class="todo-content">
-                                                        <h3 class="title"><a href="">@mekan.MekanAdi</a></h3>
-                                                        <div class="todo-meta">
-                                                            <div class="todo-location">
-                                                                <span class="icon-location"></span>
-                                                                @mekan.SemtAdi, @mekan.SehirAdi
-                                                            </div>
-
-                                                     
-                                                            <div class="todo-number">
-                                                                <span class="icon-phone"></span>
-                                                               telefon no
-                                                            </div>
-                                                      
-
+                                                <div class="todo-content">
+                                                    <h3 class="title"><a href="mekandetay.html?id={{mekan.ID}}" title="{{mekan.MekanAdi}}">{{mekan.MekanAdi}}</a></h3>
+                                                    <div class="todo-meta">
+                                                        <div class="todo-location">
+                                                            <span class="icon-location"></span>
+                                                            {{mekan.Semt}}, {{mekan.Sehir}}
                                                         </div>
-                                                        <div class="todo-summary">
-                                                            @Html.Raw(mekan.Aciklama)
+
+                                                        <div class="todo-number">
+                                                            <span class="icon-phone"></span>
+                                                            {{mekan.Telefon}}
                                                         </div>
+
                                                     </div>
-                                                    <div class="todo-footer">
-                                                        <a href="@Url.Action(" Mekanlar", new { kategori=mekan.KategoriUrl, sehir="" , semt="" })" title="@mekan.KategoriAdi" class="todo-cat todo-cat-restaurant">
-                                                            <span class="@(!string.IsNullOrEmpty(mekan.KategoriIcon) ? mekan.KategoriIcon : " icon-fast-food")"></span>
-                                                         kategori adi
-                                                        </a>
-                                                    </div>
+                                                    <div class="todo-summary" ng-bind-html="mekan.Aciklama"></div>
+                                                </div>
+                                                <div class="todo-footer">
+                                                    <a title="{{mekan.KategoriAdi}}" href="mekanlar.html?kategori={{mekan.KatID}}" class="todo-cat todo-cat-restaurant">
+                                                        <span class="icon-fast-food"></span>
+                                                        {{mekan.KategoriAdi}}
+                                                    </a>
                                                 </div>
                                             </div>
-                                            }
 
-                                          
+
+
+
+
                                             <p>Maalesef şuan kriterlere uygun hiç mekan yok!</p>
                                             <a class="btn btn-default" href="/mekanlar" title="Mekanlar">Tüm mekanları göster!</a>
-                                        
+
 
                                             <nav class="navigation paging-navigation pagination-center">
-                                              
+
                                                 <ul class="nav-links">
 
-                                                 
+
                                                     <li class="nav-previous">
-                                                      
+
                                                         <a href="@Url.Action(" Mekanlar",new { sehir=(Model.AktifSehir !=null ? UrlBusinnes.Replace(Model.AktifSehir.SehirAdi) : "" ), semt=(Model.AktifSemt !=null ? UrlBusinnes.Replace(Model.AktifSemt.town_name) : "" ), etiket=(Model.SeciliEtiketler.Any() ? Model.SeciliEtiketler.First() : "" ), kategori=(Model.AktifKategori !=null ? Model.AktifKategori.Url : "" ), sayfa=Model.AktifSayfa - 1, q=Request.QueryString["q"] })" title="Önceki">Önceki</a>
-                                                      
+
                                                         <a href="@Url.Action(" Mekanlar",new { sehir=(Model.AktifSehir !=null ? UrlBusinnes.Replace(Model.AktifSehir.SehirAdi) : "" ), semt=(Model.AktifSemt !=null ? UrlBusinnes.Replace(Model.AktifSemt.town_name) : "" ), etiket=(Model.SeciliEtiketler.Any() ? Model.SeciliEtiketler.First() : "" ), kategori=(Model.AktifKategori !=null ? Model.AktifKategori.Url : "" ), q=Request.QueryString["q"] })" title="Önceki">Önceki</a>
-                                                   
+
 
                                                     </li>
-                                              
 
-                                          
+
+
                                                     <li class=""><a class="page-numbers" title="@i. sayfa" href="@Url.Action(" Mekanlar",new { sehir=(Model.AktifSehir !=null ? UrlBusinnes.Replace(Model.AktifSehir.SehirAdi) : "" ), semt=(Model.AktifSemt !=null ? UrlBusinnes.Replace(Model.AktifSemt.town_name) : "" ), etiket=(Model.SeciliEtiketler.Any() ? Model.SeciliEtiketler.First() : "" ), kategori=(Model.AktifKategori !=null ? Model.AktifKategori.Url : "" ), q=Request.QueryString["q"] })">@i</a></li>
-                                          
-                                                    <li class=""><a class="page-numbers" title="@i. sayfa" href="@Url.Action(" Mekanlar",new { sehir=(Model.AktifSehir !=null ? UrlBusinnes.Replace(Model.AktifSehir.SehirAdi) : "" ), semt=(Model.AktifSemt !=null ? UrlBusinnes.Replace(Model.AktifSemt.town_name) : "" ), etiket=(Model.SeciliEtiketler.Any() ? Model.SeciliEtiketler.First() : "" ), kategori=(Model.AktifKategori !=null ? Model.AktifKategori.Url : "" ), sayfa=i, q=Request.QueryString["q"] })">@i</a></li>
-                                        
 
-                                                
+                                                    <li class=""><a class="page-numbers" title="@i. sayfa" href="@Url.Action(" Mekanlar",new { sehir=(Model.AktifSehir !=null ? UrlBusinnes.Replace(Model.AktifSehir.SehirAdi) : "" ), semt=(Model.AktifSemt !=null ? UrlBusinnes.Replace(Model.AktifSemt.town_name) : "" ), etiket=(Model.SeciliEtiketler.Any() ? Model.SeciliEtiketler.First() : "" ), kategori=(Model.AktifKategori !=null ? Model.AktifKategori.Url : "" ), sayfa=i, q=Request.QueryString["q"] })">@i</a></li>
+
+
+
                                                     <li class="nav-next">
                                                         <a href="#" title="Sonraki">Sonraki</a>
                                                     </li>
-                                               
+
 
                                                 </ul>
-                                           
+
 
 
 
@@ -404,7 +355,7 @@
                                             <div class="sidebar sidebar-two">
 
                                                 <aside class="widget bt-widget-search-filter">
-                                                    <h4 class="widget-title"><span class="icon-search32"></span>Arama Tercihleri</h4>
+                                                    <h4 class="widget-title"><span class="icon-search32"></span> Arama Tercihleri</h4>
                                                     <div class="widget-content">
 
                                                         <form id="sbmekanform" name="searchfilterForm" method="post" action='#' class="search_filter_form searchform">
@@ -415,29 +366,33 @@
                                                             <div class="filter-group">
                                                                 <select name="kategori" class="custom-select category">
                                                                     <option value="">Kategori</option>
-                                                                    
-                                                                    <option value="">kategori</option>
-                                                                  
+
+                                                                    <option ng-repeat="kategori in Kategoriler" value="">{{kategori.KategoriAdi}}</option>
+
 
 
                                                                 </select>
                                                             </div>
 
                                                             <div class="filter-group">
+
+
                                                                 <select name="sehir" class="custom-select country">
+
                                                                     <option value="">Şehir</option>
-                                                                   
-                                                                    <option value="">sehir</option>
-                                                                 
+                                                                    <option ng-repeat="option in Sehirler" value="{{option.id}}">{{option.SehirAdi}}</option>
+
                                                                 </select>
+
+
                                                             </div>
 
                                                             <div class="filter-group">
                                                                 <select name="semt" class="custom-select country">
                                                                     <option value="">Semt</option>
-                                                                   
-                                                                    <option value="">semt</option>
-                                                                    
+
+                                                                    <option ng-repeat="semt in Semt" value="">{{semt.town_name}}</option>
+
                                                                 </select>
                                                             </div>
 
@@ -507,11 +462,11 @@
                                                     <div class="widget-content">
                                                         <ul>
 
-                                                           
+
                                                             <li class="cat-item">
                                                                 <a href="/mekanlar/@item.Url" title="@item.KategoriAdi Mekanları">@item.KategoriAdi<span class="count">@DBBusinnes.MekanSayisi(item.Id)</span></a>
                                                             </li>
-                                                         
+
 
 
 
@@ -521,15 +476,15 @@
                                                 <aside class="widget widget-recent-view-todo">
                                                     <h4 class="widget-title"><span class="icon-eye22"></span>İlginizi Çekebilir</h4>
                                                     <div class="widget-content">
-                                                      
+
                                                         <div class="todo-side-item popular-todo-item">
                                                             <div class="todo-thumbnail-area">
                                                                 <figure class="item-thumb">
-                                                                
+
                                                                     <img src="@Url.Content(" ~/Content/Upload/Mekanlar/" + item.KapakGorsel)" alt="@item.MekanAdi">
-                                                             
+
                                                                     <img src="@Url.Content(" ~/Content/assets/images/todo/1/2.jpg")" alt="@item.MekanAdi">
-                                                                    
+
                                                                 </figure>
                                                             </div>
 
@@ -546,17 +501,17 @@
                                                                             <span class="icon-location"></span>
                                                                             semt, sehir
                                                                         </div>
-                                                                 
+
                                                                         <div class="todo-number">
                                                                             <span class="icon-phone"></span>
-                                                                          telefon
+                                                                            telefon
                                                                         </div>
-                                                                        
+
                                                                     </div><!--./ todo-meta -->
                                                                 </div><!--./ todo-content -->
                                                             </div><!--./ content-entry-wrap -->
                                                         </div>
-                                                        
+
 
 
 
@@ -572,16 +527,16 @@
                                 <div class="tab-pane fade" id="listing_grid" role="tabpanel">
                                     <div class="row">
 
-                            
+
                                         <div class="col-lg-4">
                                             <div class="popular-todo-item">
                                                 <div class="todo-thumbnail-area">
                                                     <figure class="item-thumb">
-                                                        
-                                                        <img src="@Url.Content(" ~/Content/Upload/Mekanlar/" + mekan.KapakGorsel)" alt="@mekan.MekanAdi">
-                                                        
-                                                        <img src="@Url.Content(" ~/Content/assets/images/todo/1/2.jpg")" alt="@mekan.MekanAdi">
-                                                        
+
+                                                        <img src="Content/Upload/Mekanlar/mekan.KapakGorsel" alt="">
+
+                                                        <img src="Content/assets/images/todo/1/2.jpg" alt="">
+
                                                     </figure>
                                                     <div class="todo-overlay-info">
 
@@ -598,7 +553,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="todo-content">
-                                                    <h3 class="title"><a href="@Url.Action(" MekanDetay",new { url=mekan.Url })">@mekan.MekanAdi</a></h3>
+                                                    <h3 class="title"><a href="#">@mekan.MekanAdi</a></h3>
 
                                                     <div class="todo-meta">
                                                         <div class="todo-location">
@@ -616,43 +571,43 @@
                                                 </div>
                                                 <div class="todo-footer">
                                                     <a href="/mekanlar/@mekan.KategoriUrl" title="@mekan.KategoriAdi" class="todo-cat todo-cat-restaurant">
-                                                        <span class="@(!string.IsNullOrEmpty(mekan.KategoriIcon) ? mekan.KategoriIcon : " icon-fast-food")"></span>
+                                                        <span class="icon-fast-food" "></span>
                                                         @mekan.KategoriAdi
                                                     </a>
                                                 </div>
                                             </div>
                                         </div>
-                                  
+
                                     </div>
 
                                     <nav class="navigation paging-navigation pagination-center">
-                           
+
                                         <ul class="nav-links">
 
-                                      
+
                                             <li class="nav-previous">
-                                           
-                                                <a href="@Url.Action(" Mekanlar",new { sayfa=Model.AktifSayfa - 1, kategori=Request.QueryString["kategori"], sehir=Request.QueryString["sehir"], semt=Request.QueryString["semt"] })" title="Önceki Blog Sayfası">Önceki</a>
-                                         
-                                                <a href="@Url.Action(" Mekanlar",new { kategori=Request.QueryString["kategori"], sehir=Request.QueryString["sehir"], semt=Request.QueryString["semt"] })" title="Önceki Blog Sayfası">Önceki</a>
-                                         
+
+                                                <a href="" title="Önceki Blog Sayfası">Önceki</a>
+
+                                                <a href="" title="Önceki Blog Sayfası">Önceki</a>
+
 
                                             </li>
-                                         
 
-                                            <li class="@(Model.AktifSayfa == i ? " active" : "" )"><a class="page-numbers" title="Blog yazıları @i. sayfa" href="@Url.Action(" Mekanlar",new { kategori=Request.QueryString["kategori"], sehir=Request.QueryString["sehir"], semt=Request.QueryString["semt"]})">@i</a></li>
-                                  
-                                            <li class="@(Model.AktifSayfa == i ? " active" : "" )"><a class="page-numbers" title="Blog yazıları @i. sayfa" href="@Url.Action(" Mekanlar",new { sayfa=i, kategori=Request.QueryString["kategori"], sehir=Request.QueryString["sehir"], semt=Request.QueryString["semt"] })">@i</a></li>
-                               
+
+                                            <li class="active"><a class="page-numbers" title="" href="">@i</a></li>
+
+                                            <li class="active"><a class="page-numbers" title="" href="">@i</a></li>
+
 
                                             <li class="nav-next">
-                                                <a href="@Url.Action(" Mekanlar",new { sayfa=Model.AktifSayfa + 1, kategori=Request.QueryString["kategori"], sehir=Request.QueryString["sehir"], semt=Request.QueryString["semt"] })" title="Sonraki Blog Sayfası">Sonraki</a>
+                                                <a href="" title="Sonraki Blog Sayfası">Sonraki</a>
                                             </li>
-                                      
+
 
 
                                         </ul>
-                                 
+
 
 
 
@@ -675,65 +630,653 @@
 
 
 
-    <script src="../Content/assets/js/jquery.min.js"></script>
+    <footer class="site-footer footer-default-style footer-style-two bg-image bg-overlay" style="background-image:url('https://nereyegidilmeli.com/Content/assets/images/bg/footer-bg.jpg')">
+
+        <div class="footer-widget-area ptb-100">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3">
+                        <aside class="widget bt-about-footer-widget">
+                            <div class="widget-content">
+                                <div class="about-logo">
+                                    <a href="index.html" title="Nereye Gidilmeli?"><img src="https://nereyegidilmeli.com/Content/assets/images/logo/logo1nry.svg" width="198" alt="Nereye Gidilmeli"></a>
+                                </div>
+                                <p>Nereye gidilmeli ile iyi seçim kaliteli yaşam sahibi olun...</p>
+                                <ul class="social-share">
+                                    <li><a class="facebook" href="#" title="Facebook Nereye Gidilmeli?"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a class="twitter" href="#" title="Twitter Nereye Gidilmeli?"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a class="youtube" href="#" title="Youtube Nereye Gidilmeli?"><i class="fa fa-youtube"></i></a></li>
+                                    <li><a class="instagram" href="#" title="İnstagram Nereye Gidilmeli?"><i class="fa fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                    <div class="col-lg-4">
+                        <aside class="widget widget-list style-two">
+                            <h2 class="widget-title">Popüler Şehirler</h2>
+                            <div class="widget-content">
+                                <ul>
+                                    <li><a href="/mekanlar/istanbul-mekanlari" title="İstanbul mekanları, İstanbulda nereye gidilmeli?">İstanbul</a></li>
+                                    <li><a href="/mekanlar/izmir-mekanlari" title="İzmir mekanları, İzmirde nereye gidilmeli?">İzmir</a></li>
+                                    <li><a href="#" title="Antalya mekanları, Antalyada nereye gidilmeli?">Antalya</a></li>
+                                    <li><a href="#" title="Balıkesir mekanları, Balıkesirde nereye gidilmeli?">Balıkesir</a></li>
+                                    <li><a href="#" title="Muğla mekanları, Muğlada nereye gidilmeli?">Muğla</a></li>
+                                    <li><a href="#" title="Çanakkale mekanları, Çanakkalede nereye gidilmeli?">Çanakkale</a></li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <aside class="widget widget-list">
+                            <h2 class="widget-title">Yardım</h2>
+                            <div class="widget-content">
+                                <ul>
+                                    <li><a href="mailto:info@nereyegidilmeli.com" title="Mekanımı Nasıl Eklerim?">Mekanımı Nasıl Eklerim?</a></li>
+                                    <li><a href="/etkinlikler/yaklasan-etkinlikler" title="Yaklaşan Etkinlikler">Yaklaşan Etkinlikler</a></li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <aside class="widget tb-subscribe-widget">
+                            <h4 class="widget-title">E-Bülten Üyeliği</h4>
+                            <div class="widget-content">
+                                <div class="subscribe-box">
+                                    <p>Kayıt ol ve yeni eklenen etkinlikler & blog yazılarından haberdar ol !</p>
+                                    <div class="subscribe-form">
+                                        <form method="post" id="mc-form" class="dv-form" enctype="multipart/form-data">
+
+                                            <div class="form-group">
+                                                <input id="mc-email" name="Eposta" placeholder="E-mail adresiniz" type="email">
+                                                <button class="btn btn-default" name="Subscribe" id="subscribe-btn" type="submit">Üye Ol</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </aside>
+                    </div><!--~./ end subscribe widget ~-->
+                </div>
+            </div>
+        </div><!--~./ end footer widgets area ~-->
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="copyright-text">
+                            <p>© Copyright 2020 Nereye Gidilmeli. Tüm hakları saklıdır.</p>
+                        </div>
+                    </div><!--~./ end copyright ~-->
+
+                </div>
+            </div>
+        </div><!--~./ end footer bottom area ~-->
+    </footer>
+
+    <div id="header_search_model" class="header-search-model modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog header-search-area" role="document">
+            <div class="header-search-area-inner">
+                <div class="modal-header">
+                    <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
+                        <img src="../Content/assets/images/icon/close.png" alt="close">
+                    </button>
+                </div>
+                <div class="search-form modal-content">
+                    <form id="mekanform" action="javascript:(0)">
+                        <input type="search" name="q" placeholder="Mekan Arayın">
+                        <button type="submit"><span class="icon-search32"></span></button>
+                    </form>
+                    <div class="search-by-cat">
+
+
+                        <a href="#" title="kategori adı" class="single-cat restaurant">
+                            <div class="icon">
+                                <span class="fa fa-home"></span>
+                            </div>
+                            <div class="text">
+                                kategori adı
+                            </div>
+                        </a>
+
+                    </div>
+                </div><!--~./ search-form ~-->
+            </div>
+        </div>
+    </div><!--~./ end header search model ~-->
+
+
+    <div id="reg_form_model" class="user-reg-form-area modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog register-modal-area" role="document">
+            <div class="register-modal-area-outer-inner">
+                <div class="modal-header">
+                    <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
+                        <img src="https://nereyegidilmeli.com/Content/assets/images/icon/close.png" alt="close">
+                    </button>
+                </div>
+                <div class="modal-content user-register-area">
+                    <!--~~~ Start User Signin Area ~~~-->
+                    <div class="user-signin-area">
+                        <div class="user-left-thumb">
+                            <img src="https://nereyegidilmeli.com/Content/assets/images/others/login-thumb.jpg" alt="thumb">
+                        </div>
+
+                        <div class="form-content">
+                            <h3>Hesaba Giriş</h3>
+                            <form id="girisform" class="default-form signin-form" enctype="multipart/form-data">
+
+
+                                <div class="form-group hidden" id="girismsg">
+
+                                    <p id="bilgihata" class="hidden">
+                                        Giriş bilgileriniz hatalı, bilgilerinizi kontrol edip yeniden deneyebilirsiniz.
+                                    </p>
+
+                                    <p id="uyeyok" class="hidden">
+                                        Bu e-posta adresine ait bir üyelik bulunamadı. <br />
+                                        Hemen <a href="#" class="btn-signin-now" title="Üye Ol!">üye olun!</a>
+                                    </p>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <input id="email" name="Kullanici.Email" class="form-controllar" type="email" placeholder="E-mail adresi">
+                                </div><!--/.form-group-->
+
+                                <div class="form-group">
+                                    <input id="pass" name="Kullanici.Parola" class="form-controllar" type="password" placeholder="Parola">
+                                </div><!--/.form-group-->
+
+                                <div class="remember-and-password pull-right">
+                                    <div class="forget-pass pull-right">
+                                        <a class="btn-password" href="#" title="Şifremi Unuttum!">Şifremi Unuttum</a>
+
+                                    </div>
+
+                                </div><!--/.remember-and-password-->
+
+                                <div class="form-btn-group">
+                                    <button type="submit" class="btn btn-default">
+                                        giriş yap
+                                    </button>
+                                    <div class="reg-others-midea">
+                                        <div class="text">
+                                            Sosyal Hesap İle Giriş
+                                        </div>
+                                        <div class="midea-icons">
+                                            <ul class="social-share">
+                                                <li><a class="facebook" href="javascript:SosyalGiris('facebook')" title="Facebook İle Giriş"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a class="twitter" href="javascript:SosyalGiris('twitter')" title="Twitter İle Giriş"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a class="google-plus" href="javascript:SosyalGiris('gplus')" title="Google Plus İle Giriş"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a class="linkedin" href="javascript:SosyalGiris('linkedin')" title="Linkedin İle Giriş"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <div class="login-form-register-now mt-3">
+                                Üye değil misiniz? Hemen <a class="btn-signin-now" href="#" title="Üye Olun!">Üye Olun!</a>
+                            </div>
+                        </div>
+                    </div><!--~./ end user signin area ~-->
+                    <!--~~~ Start User Signup Area ~~~-->
+                    <div class="user-signup-area">
+
+                        <div class="user-left-thumb">
+                            <img src="https://nereyegidilmeli.com/Content/assets/images/others/reg-thumb.jpg" alt="thumb">
+                        </div>
+
+                        <div class="form-content">
+                            <h3>Hesap Oluştur</h3>
+
+                            <form id="kayitform" class="default-form signup-form" enctype="multipart/form-data">
+
+
+                                <div class="form-group">
+                                    <input id="email-up" name="kullanici.Email" class="form-controllar" type="email" placeholder="Email Adresi">
+                                </div><!--/.form-group-->
+                                <div class="form-group">
+                                    <input id="pass-up" name="kullanici.Parola" class="form-controllar" type="password" placeholder="Parola">
+                                </div><!--/.form-group-->
+
+                                <div class="form-group">
+                                    <input id="pass-up-confirm" name="kullanici.ParolaTekrari" class="form-controllar" type="password" placeholder="Parola Tekrar">
+                                </div><!--/.form-group-->
+
+
+                                <div class="form-btn-group">
+                                    <button type="submit" class="btn btn-default">
+                                        kayıt
+                                    </button>
+                                    <div class="reg-others-midea">
+                                        <div class="text">
+                                            Sosyal Hesap İle Giriş
+                                        </div>
+                                        <div class="midea-icons">
+                                            <ul class="social-share">
+                                                <li><a class="facebook" href="#" title="Facebook İle Giriş"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a class="twitter" href="#" title="Twitter İle Giriş"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a class="google-plus" href="#" title="Google İle Giriş"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a class="linkedin" href="#" title="Linkedin İle Giriş"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="login-form-register-now">
+                                        Zaten üye misiniz? Hesabınıza <a class="btn-register-now" href="#" title="Giriş Yap!">giriş yapın!</a>
+                                    </div>
+
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div><!--~./ end user signup area ~-->
+
+                    <div class=" user-password-area">
+
+                        <div class="user-left-thumb">
+                            <img src="https://nereyegidilmeli.com/Content/assets/images/others/reg-thumb.jpg" alt="thumb">
+                        </div>
+
+                        <div class="form-content">
+                            <h3>Şifremi Unuttum</h3>
+
+                            <form id="sifreform" class="default-form signup-form" enctype="multipart/form-data">
+
+
+                                <div class="form-group">
+                                    <input id="email-up" name="Email" class="form-controllar" type="email" placeholder="Email Adresi">
+                                </div><!--/.form-group-->
+
+
+                                <div class="form-btn-group">
+                                    <button type="submit" class="btn btn-default">
+                                        Gönder
+                                    </button>
 
 
 
-    <script>
-
-        //var link = getParameterByName("kategori", location.href);
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const kategori = urlParams.get('kategori');
-
-
-
-                function getParameterByName(name, url) {
-                    if (!url) url = window.location.href;
-                    name = name.replace(/[\[\]]/g, '\\$&');
-                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                        results = regex.exec(url);
-                    if (!results) return null;
-                    if (!results[2]) return '';
-                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-                }
+                                    <div class="reg-others-midea">
+                                        <div class="text">
+                                            Sosyal Hesap İle Giriş
+                                        </div>
+                                        <div class="midea-icons">
+                                            <ul class="social-share">
+                                                <li><a class="facebook" href="#" title="Facebook İle Giriş"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a class="twitter" href="#" title="Twitter İle Giriş"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a class="google-plus" href="#" title="Google İle Giriş"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a class="linkedin" href="#" title="Linkedin İle Giriş"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
 
-                var app = angular.module("myapp", []);
+                                    <div class="login-form-register-now">
+                                        Giriş yapmak için <a class="btn-register-now" href="#" title="Giriş Yap!">tıklayınız!</a>
+                                    </div>
 
-                app.controller("mekanlar", function ($scope, $http) {
-
-                    $http.get(apiURL + "kategori?id=" + kategori).then(function (result) {
-                        //kategori
-                        console.log(result);
-                        alert(result.KategoriAdi);
-                    })
-
-
-                })
-
-                app.controller("mekandetay", function ($scope, $http) {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const id = urlParams.get('id');
+                                    <div class="login-form-register-now">
+                                        Üye değil misiniz? Hemen <a class="btn-signin-now" title="Üye Ol!" href="#">Üye Olun!</a>
+                                    </div>
 
 
 
-                    $scope.test = "Barış";
+                                </div>
 
-                    $http.get("http://localhost:44331/api/mekan/" + id + "").then(function (result) {
-                        console.log(result);
-                        $scope.mekan = result.data;
-                    })
+
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
 
 
-                })
 
+
+
+    <script id="msgtemplate" type="text/template">
+        <div class="row msg mb-2">
+            <div class="col-md-12">
+                {{msg}}
+            </div>
+        </div>
     </script>
 
 
+    <script id="menukattemplate" type="text/template">
+        <a class="cat-item" href="mekanlar.html?kategori={{katid}}">
+            <div class="cat-thumb">
+                <img src="https://nereyegidilmeli.com/Content/Upload/Kategoriler/{{kapakfoto}}" alt="">
+            </div>
+            <span class="cat-name">{{katadi}}</span>
+        </a>
+    </script>
+
+
+    <script id="headerkattemplate" type="text/template">
+        <a href="mekanlar.html?katid={{katid}}" class="cat-item">
+            <div class="icon">
+                <span class="fa {{icon}}"></span>
+            </div>
+            <div class="cat-name">
+                {{kategoriAdi}}
+            </div>
+        </a>
+    </script>
+
+
+
+    <!--<script type="text/javascript" src="../cordova.js"></script>
+    <script type="text/javascript" src="../scripts/platformOverrides.js"></script>-->
+
+
+
+    <script src="http://nereyegidilmeli.com/Content/assets/js/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
+
+    <script src="http://nereyegidilmeli.com/Content/assets/js/script.js"></script>
+
+
+    <!--<script src="cordova/Scripts/angular-route.min.js"></script>-->
+
+    <script type="text/javascript" src="scripts/header.js"></script>
+
+    <script src="http://nereyegidilmeli.com/Content/assets/js/bootstrap.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/owl.carousel.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/ResizeSensor.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/theia-sticky-sidebar.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/rangeslider.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/wan-spinner.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/rater.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/jquery-steps.min.js"></script>
+
+    <script src="http://nereyegidilmeli.com/Content/assets/js/jquery.validate.min.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/plugins.js"></script>
+    <script src="http://nereyegidilmeli.com/Content/assets/js/main.js"></script>
+
+
+
+
+
+    <script type="text/javascript">
+
+
+
+
+
+        $(document).ready(function () {
+            $("a[rel*=external]").attr("target", "_blank");
+
+
+
+
+            $("header").removeClass("header-style-one").addClass("header-style-two");
+
+            var ilklogo = $(".site-logo img:first").attr("src");
+            var ikincilogo = $(".site-logo img:last").attr("src");
+
+            $(".site-logo img:first").attr("src", ikincilogo);
+            $(".site-logo img:last").attr("src", ilklogo);
+
+
+
+            $(".searchform select[name=sehir]").change(function () {
+
+                var form = $(this).closest("form");
+
+
+                //var semt = form.find("select[name=semt]").val();
+
+                var sehir = $(this).val();
+
+
+
+
+                $.post("/Home/SemtleriGetir?sehir=" + sehir + "").done(function (semtler) {
+
+                    form.find("select[name=semt] option:not(:first)").remove();
+
+
+                    $.each(semtler, function (i, e) {
+                        form.find("select[name=semt]").append("<option value=\"" + e.url + "\">" + e.town_name + "</option>");
+                    })
+
+
+                    form.find("select[name=semt]").niceSelect("update");
+
+                })
+
+
+            })
+
+
+            $('.btn-password').on('click', function () {
+
+
+
+        $('.user-password-area').css('display',"flex");
+                $('.user-signin-area').css('display', "none");
+                 $('.user-signup-area').css('display',"none");
+            });
+
+
+            $(".btn-register-now").click(function () {
+                      $('.user-signin-area').css('display',"flex");
+                $('.user-signup-area').css('display', "none");
+                $('.user-password-area').css('display', "none");
+            })
+
+
+             $(".btn-signin-now").click(function () {
+                      $('.user-signup-area').css('display',"flex");
+                $('.user-signin-area').css('display', "none");
+                $('.user-password-area').css('display', "none");
+            })
+
+
+
+
+        })
+         function Keyword() {
+                 var secilenler = new Array();
+
+                $("input[name=tag]:checked").each(function (i, e) {
+                    var url = $(this).data("value");
+                    secilenler.push(url);
+                })
+
+                var keyword = secilenler.join(",");
+
+                return keyword;
+            }
+
+        $("#mekanform,#sbmekanform").submit(function () {
+            var q = $(this).find("input[name=q]").val();
+            var sehir = $(this).find("select[name=sehir]").val();
+            var semt = $(this).find("select[name=semt]").val();
+            var kategori = $(this).find("select[name=kategori]").val();
+
+
+
+            if (semt != "") {
+                sehir = "";
+            }
+
+
+            $.post("/Home/MekanAraURLBul", { q: q, sehir: sehir, semt: semt, kategori: kategori }, function (result) {
+
+                location.href = result;
+
+
+            })
+        })
+
+        function ebultensonuc(data) {
+            if (data == 1) {
+
+                swal({
+                    title: "Başarılı!",
+                    text: "E-Bülten Kaydınız başarıyla tamamlandı!",
+                    confirmButtonClass: "btn-success",
+                    imageUrl: '/Content/Wscp/img/smile.png'
+                });
+
+                $("#mc-form")[0].reset();
+            }
+            else if (data == -1) {
+                swal({
+                    title: "Kayıt Mevcut!",
+                    text: "E-Bülten Kaydınız zaten var, ilginiz için teşekkür ederiz.",
+                    type: "error",
+                    confirmButtonClass: "btn-danger"
+                });
+            }
+            else {
+                swal({
+                    title: "Hata!",
+                    text: "İşlem sırasında beklenmeyen bir hata, lütfen daha sonra tekrar deneyin.",
+                    type: "error",
+                    confirmButtonClass: "btn-danger"
+                });
+            }
+        }
+
+
+        function girissonuc(data) {
+            if (data.sonuc == 1) {
+                location.href = data.url;
+            }
+            else if (data.sonuc == 0) {
+
+                $("#girismsg").removeClass("hidden");
+
+                $("#girismsg p").addClass("hidden");
+
+                $("#bilgihata").removeClass("hidden");
+
+
+            }
+
+            else {
+                $("#girismsg").removeClass("hidden");
+                $("#girismsg p").addClass("hidden");
+
+                $("#uyeyok").removeClass("hidden");
+            }
+        }
+
+
+
+         function kayitsonuc(data) {
+
+            $("#kayitform .msg").remove();
+
+            var mesaj = $("#msgtemplate").html();
+
+              if (data == 0) {
+                  mesaj = mesaj.replace(/{{msg}}/g, "Kayıt işlemi esnasında hata, lütfen daha sonra tekrar deneyiniz!");
+                   $("#kayitform div:first").before(mesaj);
+              }
+              else if(data == -1){
+                      mesaj = mesaj.replace(/{{msg}}/g, "Kayıt işlemi esnasında hata, bu e-mail adresi ile zaten mevcut bir üye bulunuyor!");
+                   $("#kayitform div:first").before(mesaj);
+              }
+              else if (data == -2) {
+                      mesaj = mesaj.replace(/{{msg}}/g, "Parola ve parola tekrarı uyuşmuyor!");
+                   $("#kayitform div:first").before(mesaj);
+              }
+              else if(data == 1){
+                   mesaj = mesaj.replace(/{{msg}}/g, "Kayıt işlemi başarıyla tamamlandı, e-posta adresinize gelecek onay mailini onaylamanızın ardından hesabınıza giriş yapabilirsiniz!");
+                  $("#kayitform div:first").before(mesaj);
+            }
+
+        }
+
+
+        function sifresonuc(data) {
+
+             $("#sifreform .msg").remove();
+
+            var mesaj = $("#msgtemplate").html();
+
+              if (data == 0) {
+                  mesaj = mesaj.replace(/{{msg}}/g, "E-posta adresine ait üyelik bulunamadı!");
+                   $("#sifreform div:first").before(mesaj);
+              }
+              else if(data == 1){
+                   mesaj = mesaj.replace(/{{msg}}/g, "Parolanız e-posta adresinize iletilecektir, e-posta adresinizi kontrol ediniz!");
+                  $("#sifreform div:first").before(mesaj);
+            }
+              else if (data == -1) {
+                   mesaj = mesaj.replace(/{{msg}}/g, "İşlem esnasında hata, lütfen daha sonra tekrar deneyiniz!");
+                  $("#sifreform div:first").before(mesaj);
+              }
+
+
+        }
+
+
+        function SifreForm() {
+            $("#sifreform").css("display","block");
+            $("#girisform").css("display","none");
+        }
+
+        function SifreGeri() {
+            $("#sifreform").css("display","none");
+            $("#girisform").css("display","block");
+        }
+
+
+        function SosyalGiris(hesap) {
+
+            $.post("/Home/SosyalHesaplaGiris?hesap=" + hesap + "", function (result) {
+
+                if (result != "-1") {
+
+                    window.open(result, "_self", "width=200,height=100");
+                }
+
+
+            })
+        }
+
+        function iletisimsonuc(data) {
+            if (data == 1) {
+                $("#contact-form")[0].reset();
+                swal({
+                    title: "Gönderildi!",
+                    text: "Mesajınız başarıyla gönderildi.",
+                    type: "success",
+                    confirmButtonClass: "btn-success"
+                });
+
+            }
+            else {
+                swal({
+                    title: "Hata!",
+                    text: "Mesaj gönderilme esnasında hata, lütfen daha sonra tekrar deneyiniz!",
+                    type: "info",
+                    confirmButtonClass: "btn-danger"
+                });
+            }
+        }
+
+    </script>
 
 
     <script id="scripts"></script>
@@ -749,7 +1292,6 @@
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-    <script type="text/javascript" src="scripts/index.js"></script>
 
     <script src="../Content/assets/js/script.js"></script>
 
@@ -758,97 +1300,7 @@
     <script src="../Content/assets/js/jquery.fancybox.js"></script>
 
 
-    <script>
 
-
-                //$(".review-box li:eq(0) .review-rating").attr("data-rate-value", "5");
-                //$(".review-box li:eq(1) .review-rating").attr("data-rate-value", "5");
-                //$(".review-box li:eq(2) .review-rating").attr("data-rate-value", "5");
-                //$(".review-box li:eq(3) .review-rating").attr("data-rate-value", "5");
-                //$(".review-box li:eq(4) .review-rating").attr("data-rate-value", "5");
-
-
-
-                $("[data-fancybox]").fancybox({
-                    thumbs: false,
-                    hash: false,
-                    loop: true,
-                    keyboard: true,
-                    toolbar: false,
-                    animationEffect: false,
-                    arrows: true,
-                    clickContent: false
-                });
-
-                function rezsonuc(data) {
-                    if (data == -1) {
-                        swal({
-                            html: true,
-                            title: "Eksik Alanlar Var!",
-                            text: "Formda veya üyelik bilgilerinizde eksik alanlar mevcut olabilir. Lütfen kontrol edip yeniden deneyiniz. Üyelik bilgilerinizi kontrol etmek için <a href='/profilim' target='_blank'><b>tıklayınız.</b></a>",
-                            type: "error",
-                            confirmButtonClass: "btn-danger"
-                        });
-                    }
-                    else if (data == -2) {
-                        $("#reg_form_model").modal();//giris yap
-                    }
-
-                    else if (data == -5) {
-                        swal({
-                            title: "Kayıt Mevcut!",
-                            text: "Rezervasyon Kaydınız zaten mevcut, ilginiz için teşekkür ederiz.",
-                            type: "error",
-                            confirmButtonClass: "btn-danger"
-                        });
-                    }
-                    else if (data == 0) {
-                        swal({
-                            title: "Rezervasyon Devre Dışı!",
-                            text: "Şuanda bu etkinlik için rezervasyon devre dışı olduğundan rezervasyon işleminiz gerçekleştirilemedi!",
-                            type: "error",
-                            confirmButtonClass: "btn-danger"
-                        });
-                    }
-                    else if (data == 1) {
-                        swal({
-                            title: "Başarılı!",
-                            text: "Rezervasyon Kaydınız başarıyla tamamlandı! Rezervasyonunuzun mekan tarafından onaylanıp onaylanmadığını rezervasyonlarım bölümünden görebilirsiniz.",
-                            confirmButtonClass: "btn-success",
-                            imageUrl: '/Content/Wscp/img/smile.png'
-                        });
-
-                        $("#reservation_form")[0].reset();
-                    }
-                    else {
-                        swal({
-                            title: "Hata!",
-                            text: "İşlem esnasında beklenmeyen bir hata, lütfen daha sonra tekrar deneyin.",
-                            type: "error",
-                            confirmButtonClass: "btn-danger"
-                        });
-                    }
-                }
-
-
-
-
-                function YorumYap() {
-
-                    var model = {
-                        Konum: $(".review-box li:eq(0) .review-rating").attr("data-rate-value"),
-                        Kalite: $(".review-box li:eq(1) .review-rating").attr("data-rate-value"),
-                        Hiz: $(".review-box li:eq(2) .review-rating").attr("data-rate-value"),
-                        Servis: $(".review-box li:eq(3) .review-rating").attr("data-rate-value"),
-                        Fiyat: $(".review-box li:eq(4) .review-rating").attr("data-rate-value"),
-                        YorumBaslik: $("#review_form input[name=title]").val(),
-                        Yorum: $("#review_form textarea[name=message]").val()
-                    }
-
-                }
-
-
-    </script>
 
     <script src="https://momentjs.com/downloads/moment.js"></script>
 
@@ -861,8 +1313,99 @@
     <script src="../Content/assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-    <script type="text/javascript" src="scripts/index.js"></script>
+    <script type="text/javascript" src="scripts/script.js"></script>
+    <script type="text/javascript" src="scripts/mekanlar.js"></script>
+
+    <script>
 
 
+        //$(".review-box li:eq(0) .review-rating").attr("data-rate-value", "5");
+        //$(".review-box li:eq(1) .review-rating").attr("data-rate-value", "5");
+        //$(".review-box li:eq(2) .review-rating").attr("data-rate-value", "5");
+        //$(".review-box li:eq(3) .review-rating").attr("data-rate-value", "5");
+        //$(".review-box li:eq(4) .review-rating").attr("data-rate-value", "5");
+
+
+
+        $("[data-fancybox]").fancybox({
+            thumbs: false,
+            hash: false,
+            loop: true,
+            keyboard: true,
+            toolbar: false,
+            animationEffect: false,
+            arrows: true,
+            clickContent: false
+        });
+
+        function rezsonuc(data) {
+            if (data == -1) {
+                swal({
+                    html: true,
+                    title: "Eksik Alanlar Var!",
+                    text: "Formda veya üyelik bilgilerinizde eksik alanlar mevcut olabilir. Lütfen kontrol edip yeniden deneyiniz. Üyelik bilgilerinizi kontrol etmek için <a href='/profilim' target='_blank'><b>tıklayınız.</b></a>",
+                    type: "error",
+                    confirmButtonClass: "btn-danger"
+                });
+            }
+            else if (data == -2) {
+                $("#reg_form_model").modal();//giris yap
+            }
+
+            else if (data == -5) {
+                swal({
+                    title: "Kayıt Mevcut!",
+                    text: "Rezervasyon Kaydınız zaten mevcut, ilginiz için teşekkür ederiz.",
+                    type: "error",
+                    confirmButtonClass: "btn-danger"
+                });
+            }
+            else if (data == 0) {
+                swal({
+                    title: "Rezervasyon Devre Dışı!",
+                    text: "Şuanda bu etkinlik için rezervasyon devre dışı olduğundan rezervasyon işleminiz gerçekleştirilemedi!",
+                    type: "error",
+                    confirmButtonClass: "btn-danger"
+                });
+            }
+            else if (data == 1) {
+                swal({
+                    title: "Başarılı!",
+                    text: "Rezervasyon Kaydınız başarıyla tamamlandı! Rezervasyonunuzun mekan tarafından onaylanıp onaylanmadığını rezervasyonlarım bölümünden görebilirsiniz.",
+                    confirmButtonClass: "btn-success",
+                    imageUrl: '/Content/Wscp/img/smile.png'
+                });
+
+                $("#reservation_form")[0].reset();
+            }
+            else {
+                swal({
+                    title: "Hata!",
+                    text: "İşlem esnasında beklenmeyen bir hata, lütfen daha sonra tekrar deneyin.",
+                    type: "error",
+                    confirmButtonClass: "btn-danger"
+                });
+            }
+        }
+
+
+
+
+        function YorumYap() {
+
+            var model = {
+                Konum: $(".review-box li:eq(0) .review-rating").attr("data-rate-value"),
+                Kalite: $(".review-box li:eq(1) .review-rating").attr("data-rate-value"),
+                Hiz: $(".review-box li:eq(2) .review-rating").attr("data-rate-value"),
+                Servis: $(".review-box li:eq(3) .review-rating").attr("data-rate-value"),
+                Fiyat: $(".review-box li:eq(4) .review-rating").attr("data-rate-value"),
+                YorumBaslik: $("#review_form input[name=title]").val(),
+                Yorum: $("#review_form textarea[name=message]").val()
+            }
+
+        }
+
+
+    </script>
 </body>
 </html>

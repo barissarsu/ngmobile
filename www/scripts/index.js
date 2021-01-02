@@ -99,27 +99,11 @@
     };
 })();
 
+var app = angular.module("myapp", ['ngSanitize']);
 
+var apiURL = "https://localhost:44385/api/";
 
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-
-
-
-
-var app = angular.module("myapp", []);
-
-//var apiURL = "https://localhost:44385/api/";
-
-var apiURL = "https://testapi.nereyegidilmeli.com/api/";
+//var apiURL = "https://testapi.nereyegidilmeli.com/api/";
 
 
 
